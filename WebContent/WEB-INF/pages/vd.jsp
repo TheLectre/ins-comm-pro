@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Polisafe - Dodawanie użytkownika</title>
+<title>Polisafe - Walidacja</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -68,56 +68,6 @@
 			</div>
 		</div>
 	</nav>
-
-
-
-	<div class="container">
-
-		<div class="row text-center">
-			<div class="col-md-12">
-				<h1>Witamy w systemie Polisafe</h1>
-				<h2>Zalogowany jako: ${pageContext.request.userPrincipal.name}</h2>
-			</div>
-		</div>
-
-		<hr>
-
-		<div class="row text-center">
-			<sec:authorize access="hasRole('ROLE_ADDUSER')">
-				<div class="col-md-6">
-					<div class="well">
-						<h2>Dodaj użytkownika</h2>
-						<br>
-						<p>Zrób co trzeba</p>
-						<a class="btn btn-lg btn-warning"
-							href="<c:url value="/adduser" />">Dalej</a>
-					</div>
-				</div>
-			</sec:authorize>
-			<div class="col-md-6">
-				<div class="well">
-					<h2>Dwa</h2>
-					<br>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-						Saepe rem nisi accusamus error velit animi non ipsa placeat.
-						Recusandae, suscipit, soluta quibusdam accusamus a veniam quaerat
-						eveniet eligendi dolor consectetur.</p>
-					<a class="btn btn-lg btn-warning" href="#">Dalej</a>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="well">
-					<h2>Trzy</h2>
-					<br>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-						Saepe rem nisi accusamus error velit animi non ipsa placeat.
-						Recusandae, suscipit, soluta quibusdam accusamus a veniam quaerat
-						eveniet eligendi dolor consectetur.</p>
-					<a class="btn btn-lg btn-warning" href="#">Dalej</a>
-				</div>
-			</div>
-		</div>
-	</div>
 
 </body>
 </html>
