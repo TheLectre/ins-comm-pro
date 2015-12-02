@@ -12,20 +12,16 @@
 
 <link href="<c:url value="/bootstrap/css/bootstrap.min.css" />"
 	type="text/css" rel="stylesheet">
-<link href="<c:url value="bootstrap/css/navbar.css" />" type="text/css"
+<link href="<c:url value="/bootstrap/css/navbar.css" />" type="text/css"
 	rel="stylesheet">
-<link href="<c:url value="bootstrap/css/form-elements.css" />"
+<link href="<c:url value="/bootstrap/css/form-elements.css" />"
 	type="text/css" rel="stylesheet">
-<link href="<c:url value="bootstrap/css/form.css" />" type="text/css"
+<link href="<c:url value="/bootstrap/css/form.css" />" type="text/css"
 	rel="stylesheet">
 
-
-
-
-
-<script src="<c:url value="bootstrap/js/jquery-1.11.1.min.js" />"></script>
-<script src="<c:url value="bootstrap/js/jquery.backstretch.min.js" />"></script>
-<script src="<c:url value="bootstrap/js/scripts.js" />"></script>
+<script src="<c:url value="/bootstrap/js/jquery-1.11.1.min.js" />"></script>
+<script src="<c:url value="/bootstrap/js/jquery.backstretch.min.js" />"></script>
+<script src="<c:url value="/bootstrap/js/scripts.js" />"></script>
 <script src="<c:url value="/bootstrap/js/bootstrap.min.js" />"></script>
 
 </head>
@@ -152,24 +148,29 @@
 							</div>
 						</div>
 						<div class="form-bottom">
-							<form name="addUserForm"
-								action="<c:url value='/adduser/validate' />" method="GET">
+							<form:form name="addUserForm"
+								action="<c:url value='adduser/validate' />" method="POST"
+								modelAttribute="user">
 								<div class="form-group">
-									<input type="text" name="email" placeholder="Email"
-										class="form-control"> <span class="text-danger">Email
-										jest niezbędny do zalogowania się</span>
+									<form:input type="text" path="email" placeholder="Email"
+										class="form-control" />
+									<span class="text-danger">Email jest niezbędny do
+										zalogowania się</span>
 								</div>
 								<div class="form-group">
-									<input type="text" name="imie" placeholder="Imię"
-										class="form-control">
+									<form:input type="text" path="imie" placeholder="Imię"
+										class="form-control" />
 								</div>
 								<div class="form-group">
-									<input type="text" name="nazwisko" placeholder="Nazwisko"
-										class="form-control">
+									<form:input type="text" path="nazwisko" placeholder="Nazwisko"
+										class="form-control" />
 								</div>
+
 								<button type="submit" class="btn">Dodaj użytkownika</button>
 
-							</form>
+								<input type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}" />
+							</form:form>
 						</div>
 					</div>
 				</div>
@@ -177,15 +178,182 @@
 		</c:if>
 
 		<c:if test="${type == 'agent'}">
+			<div class="inner-bg">
+				<div class="row text-center"></div>
+				<div class="row">
+					<div class="col-sm-6 col-sm-offset-3 form-box">
+						<div class="form-top">
+							<div class="form-top-right">
+								<i class="fa fa-lock"></i>
+							</div>
+						</div>
+						<div class="form-bottom">
+							<form:form name="addUserForm"
+								action="<c:url value='adduser/validate' />" method="POST"
+								modelAttribute="user">
+								<div class="form-group">
+									<form:input type="text" path="email" placeholder="Email"
+										class="form-control" />
+									<span class="text-danger">Email jest niezbędny do
+										zalogowania się</span>
+								</div>
+								<div class="form-group">
+									<form:input type="text" path="imie" placeholder="Imię"
+										class="form-control" />
+								</div>
+								<div class="form-group">
+									<form:input type="text" path="nazwisko" placeholder="Nazwisko"
+										class="form-control" />
+								</div>
 
+								<button type="submit" class="btn">Dodaj użytkownika</button>
+
+								<input type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}" />
+							</form:form>
+						</div>
+					</div>
+				</div>
+			</div>
 		</c:if>
 
 		<c:if test="${type == 'klient'}">
+			<div class="inner-bg">
+				<div class="row text-center"></div>
+				<div class="row">
+					<div class="col-sm-6 col-sm-offset-3 form-box">
+						<div class="form-top">
+							<div class="form-top-right">
+								<i class="fa fa-lock"></i>
+							</div>
+						</div>
+						<div class="form-bottom">
+							<form:form name="addUserForm"
+								action="<c:url value='adduser/validate' />" method="POST"
+								modelAttribute="user">
+								<div class="form-group">
+									<form:input type="text" path="email" placeholder="Email"
+										class="form-control" />
+									<span class="text-danger">Email jest niezbędny do
+										zalogowania się</span>
+								</div>
+								<div class="form-group">
+									<form:input type="text" path="imie" placeholder="Imię"
+										class="form-control" />
+								</div>
+								<div class="form-group">
+									<form:input type="text" path="nazwisko" placeholder="Nazwisko"
+										class="form-control" />
+								</div>
+								<div class="form-group">
+									<form:input type="text" path="firma" placeholder="Firma"
+										class="form-control" />
+								</div>
+								<div class="form-group">
+									<form:input type="text" path="telefon"
+										placeholder="Numer telefonu" class="form-control" />
+								</div>
+								<div class="form-group">
+									<form:input type="text" path="ulica" placeholder="Ulica"
+										class="form-control" />
+								</div>
+								<div class="form-group">
+									<form:input type="text" path="kod" placeholder="Kod pocztowy"
+										class="form-control" />
+								</div>
+								<div class="form-group">
+									<form:input type="text" path="miasto" placeholder="Miasto"
+										class="form-control" />
+								</div>
+								<div class="form-group">
+									<form:input type="text" path="region" placeholder="Region"
+										class="form-control" />
+								</div>
+								<div class="form-group">
+									<form:input type="text" path="nip" placeholder="NIP"
+										class="form-control" />
+								</div>
 
+								<button type="submit" class="btn">Dodaj użytkownika</button>
+
+								<input type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}" />
+							</form:form>
+						</div>
+					</div>
+				</div>
+			</div>
 		</c:if>
 
 		<c:if test="${type == 'towarzystwo'}">
+			<div class="inner-bg">
+				<div class="row text-center"></div>
+				<div class="row">
+					<div class="col-sm-6 col-sm-offset-3 form-box">
+						<div class="form-top">
+							<div class="form-top-right">
+								<i class="fa fa-lock"></i>
+							</div>
+						</div>
+						<div class="form-bottom">
+							<form:form name="addUserForm"
+								action="<c:url value='adduser/validate' />" method="POST"
+								modelAttribute="user">
+								<div class="form-group">
+									<form:input type="text" path="email" placeholder="Email"
+										class="form-control" />
+									<span class="text-danger">Email jest niezbędny do
+										zalogowania się</span>
+								</div>
+								<div class="form-group">
+									<form:input type="text" path="imie" placeholder="Imię"
+										class="form-control" />
+								</div>
+								<div class="form-group">
+									<form:input type="text" path="nazwisko" placeholder="Nazwisko"
+										class="form-control" />
+								</div>
+								<div class="form-group">
+									<select class="form-control"> <!-- TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!!!!!! -->
+										<option>TU1</option>
+										<option>TU2</option>
+										<option>TU3</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<form:input type="text" path="telefon"
+										placeholder="Numer telefonu" class="form-control" />
+								</div>
+								<div class="form-group">
+									<form:input type="text" path="ulica" placeholder="Ulica"
+										class="form-control" />
+								</div>
+								<div class="form-group">
+									<form:input type="text" path="kod" placeholder="Kod pocztowy"
+										class="form-control" />
+								</div>
+								<div class="form-group">
+									<form:input type="text" path="miasto" placeholder="Miasto"
+										class="form-control" />
+								</div>
+								<div class="form-group">
+									<form:input type="text" path="region" placeholder="Region"
+										class="form-control" />
+								</div>
+								<div class="form-group">
+									<form:input type="text" path="nip" placeholder="NIP"
+										class="form-control" />
+								</div>
 
+								<button type="submit" class="btn">Dodaj użytkownika</button>
+
+								<input type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}" />
+							</form:form>
+						</div>
+					</div>
+				</div>
+			</div>
 		</c:if>
 
 	</div>

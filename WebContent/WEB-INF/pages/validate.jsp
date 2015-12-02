@@ -14,9 +14,9 @@
 
 <link href="<c:url value="/bootstrap/css/bootstrap.min.css" />"
 	type="text/css" rel="stylesheet">
-<link href="<c:url value="bootstrap/css/navbar.css" />" type="text/css"
+<link href="<c:url value="/bootstrap/css/navbar.css" />" type="text/css"
 	rel="stylesheet">
-<link href="<c:url value="bootstrap/css/form.css" />" type="text/css"
+<link href="<c:url value="/bootstrap/css/form.css" />" type="text/css"
 	rel="stylesheet">
 
 

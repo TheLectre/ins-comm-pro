@@ -16,14 +16,12 @@
 <link href="<c:url value="/bootstrap/css/bootstrap.min.css" />"
 	type="text/css" rel="stylesheet">
 <link
-	href="<c:url value="bootstrap/font-awesome/css/font-awesome.min.css" />"
+	href="<c:url value="/bootstrap/font-awesome/css/font-awesome.min.css" />"
 	type="text/css" rel="stylesheet">
-<link href="<c:url value="bootstrap/css/form-elements.css" />"
+<link href="<c:url value="/bootstrap/css/form-elements.css" />"
 	type="text/css" rel="stylesheet">
-<link href="<c:url value="bootstrap/css/form.css" />" type="text/css"
+<link href="<c:url value="/bootstrap/css/form.css" />" type="text/css"
 	rel="stylesheet">
-
-
 
 <script src="<c:url value="bootstrap/js/jquery-1.11.1.min.js" />"></script>
 <script src="<c:url value="bootstrap/js/jquery.backstretch.min.js" />"></script>

@@ -3,6 +3,7 @@ package application.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -30,11 +31,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		antMatchers("/home", "/").access("hasRole('ROLE_BASIC')")
 		.antMatchers("/adduser").access("hasRole('ROLE_ADDUSER')")
+		.antMatchers(HttpMethod.POST, "adduser/validate").access("hasRole('ROLE_ADDUSER')")
 		
 		.and().formLogin().loginPage("/login").failureUrl("/login?error=true").usernameParameter("email").passwordParameter("password")
 		.and().logout().logoutUrl("/logout").logoutSuccessUrl("/login?logout=true")
 		.and().csrf()
-		.and().exceptionHandling().accessDeniedPage("/403");
+		;//.and().exceptionHandling().accessDeniedPage("/403");
 	}
 
 	/*@Bean

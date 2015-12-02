@@ -14,16 +14,14 @@
 
 <link href="<c:url value="/bootstrap/css/bootstrap.min.css" />"
 	type="text/css" rel="stylesheet">
-<link href="<c:url value="bootstrap/css/navbar.css" />" type="text/css"
+<link href="<c:url value="/bootstrap/css/navbar.css" />" type="text/css"
 	rel="stylesheet">
-<link href="<c:url value="bootstrap/css/form.css" />" type="text/css"
+<link href="<c:url value="/bootstrap/css/form.css" />" type="text/css"
 	rel="stylesheet">
 
-
-
-<script src="<c:url value="bootstrap/js/jquery-1.11.1.min.js" />"></script>
-<script src="<c:url value="bootstrap/js/jquery.backstretch.min.js" />"></script>
-<script src="<c:url value="bootstrap/js/scripts.js" />"></script>
+<script src="<c:url value="/bootstrap/js/jquery-1.11.1.min.js" />"></script>
+<script src="<c:url value="/bootstrap/js/jquery.backstretch.min.js" />"></script>
+<script src="<c:url value="/bootstrap/js/scripts.js" />"></script>
 <script src="<c:url value="/bootstrap/js/bootstrap.min.js" />"></script>
 
 </head>
