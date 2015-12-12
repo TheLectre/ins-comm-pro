@@ -78,91 +78,16 @@
 	<div class="container">
 
 		<div class="row text-center">
-			<h1>Dodawanie użytkownika</h1>
-			<c:if test="${type == null}">
-				<h3>Wybierz typ użytkownika</h3>
-			</c:if>
-			<c:if test="${type == 'admin'}">
-				<h3>Uzupełnij dane nowego administatora</h3>
-			</c:if>
-			<c:if test="${type == 'agent'}">
-				<h3>Uzupełnij dane nowego agenta</h3>
-			</c:if>
-			<c:if test="${type == 'klient'}">
-				<h3>Uzupełnij dane nowego klienta</h3>
-			</c:if>
-			<c:if test="${type == 'towarzystwo'}">
-				<h3>Uzupełnij dane nowego pracownika towarzystwa</h3>
-			</c:if>
+			<div class="col-md-12">
+				<h1>Edycja użytkownika</h1>
+				<h2>${user.email}</h2>
+			</div>
 		</div>
 
 		<hr>
 
-		<c:if test="${result == 'error'}">
-			<div class="row text-center">
-				<div class="alert alert-danger">
-					<strong>Błąd!</strong> Użytkownik z takim emailem już istnieje!
-				</div>
-				<hr>
-			</div>
-		</c:if>
-
-		<c:if test="${result == 'success'}">
-			<div class="row text-center">
-				<div class="alert alert-success">
-					<strong>Sukces!</strong> Pomyślnie dodano użytkownika.
-				</div>
-				<hr>
-			</div>
-		</c:if>
-
-		<c:if test="${type == null}">
-
-			<div class="row text-center">
-				<div class="col-md-3">
-					<div class="well">
-						<h3>Administrator</h3>
-						<br> <a class="btn btn-lg btn-warning"
-							href="<c:url value="/adduser">
-						<c:param name="type" value="admin" />
-						</c:url>">Dalej</a>
-					</div>
-				</div>
-
-				<div class="col-md-3">
-					<div class="well">
-						<h3>Agent</h3>
-						<br> <a class="btn btn-lg btn-warning"
-							href="<c:url value="/adduser">
-						<c:param name="type" value="agent" />
-						</c:url>">Dalej</a>
-					</div>
-				</div>
-
-				<div class="col-md-3">
-					<div class="well">
-						<h3>Klient</h3>
-						<br> <a class="btn btn-lg btn-warning"
-							href="<c:url value="/adduser">
-						<c:param name="type" value="klient" />
-						</c:url>">Dalej</a>
-					</div>
-				</div>
-
-				<div class="col-md-3">
-					<div class="well">
-						<h3>Pracownik TU</h3>
-						<br> <a class="btn btn-lg btn-warning"
-							href="<c:url value="/adduser">
-						<c:param name="type" value="towarzystwo" />
-						</c:url>">Dalej</a>
-					</div>
-				</div>
-			</div>
-
-		</c:if>
-
-		<c:url value="adduser/validate" var="validate_url" />
+		<c:set var="type" value="${user.typ}" scope="page" />
+		<c:url value="/user-list/edit-user/proceed" var="processUrl" />
 
 		<c:if test="${type == 'admin'}">
 			<div class="inner-bg">
@@ -176,27 +101,21 @@
 						</div>
 
 						<div class="form-bottom">
-							<form:form name="addUserForm" action="${validate_url}"
+							<form:form name="addUserForm" action="${processUrl}"
 								method="POST" modelAttribute="user">
 								<div class="form-group">
-									<form:input type="text" path="email" placeholder="Email"
-										class="form-control" />
-									<span class="text-danger">Błędny adres email uniemożliwi
-										korzystanie z systemu</span>
-								</div>
-								<div class="form-group">
 									<form:input type="text" path="imie" placeholder="Imię"
-										class="form-control" />
+										class="form-control" value="${user.imie }" />
 								</div>
 								<div class="form-group">
 									<form:input type="text" path="nazwisko" placeholder="Nazwisko"
-										class="form-control" />
+										class="form-control" value="${user.nazwisko}" />
 								</div>
-								<button type="submit" class="btn">Dodaj użytkownika</button>
-								<span class="text-danger">Przed dodaniem upewnij się o
-									poprawności danych</span>
+								<button type="submit" class="btn">Zatwierdź edycję</button>
 
-								<input type="hidden" name="type" value="${type}" />
+								<form:input type="hidden" path="email" value="${user.email}" />
+								
+								<form:input type="hidden" path="typ" value="${user.typ}" />
 
 								<input type="hidden" name="${_csrf.parameterName}"
 									value="${_csrf.token}" />
@@ -218,28 +137,22 @@
 							</div>
 						</div>
 						<div class="form-bottom">
-							<form:form name="addUserForm" action="${validate_url}"
+							<form:form name="addUserForm" action="${processUrl}"
 								method="POST" modelAttribute="user">
 								<div class="form-group">
-									<form:input type="text" path="email" placeholder="Email"
-										class="form-control" />
-									<span class="text-danger">Błędny adres email uniemożliwi
-										korzystanie z systemu</span>
-								</div>
-								<div class="form-group">
 									<form:input type="text" path="imie" placeholder="Imię"
-										class="form-control" />
+										class="form-control" value="${user.imie}" />
 								</div>
 								<div class="form-group">
 									<form:input type="text" path="nazwisko" placeholder="Nazwisko"
-										class="form-control" />
+										class="form-control" value="${user.nazwisko}" />
 								</div>
 
-								<button type="submit" class="btn">Dodaj użytkownika</button>
-								<span class="text-danger">Przed dodaniem upewnij się o
-									poprawności danych</span>
+								<button type="submit" class="btn">Zatwierdź edycję</button>
 
-								<input type="hidden" name="type" value="${type}" />
+								<form:input type="hidden" path="email" value="${user.email}" />
+								
+								<form:input type="hidden" path="typ" value="${user.typ}" />
 
 								<input type="hidden" name="${_csrf.parameterName}"
 									value="${_csrf.token}" />
@@ -261,56 +174,51 @@
 							</div>
 						</div>
 						<div class="form-bottom">
-							<form:form name="addUserForm" action="${validate_url}"
+							<form:form name="addUserForm" action="${processUrl}"
 								method="POST" modelAttribute="user">
 								<div class="form-group">
-									<form:input type="text" path="email" placeholder="Email"
-										class="form-control" />
-									<span class="text-danger">Błędny adres email uniemożliwi
-										korzystanie z systemu</span>
-								</div>
-								<div class="form-group">
 									<form:input type="text" path="imie" placeholder="Imię"
-										class="form-control" />
+										class="form-control" value="${user.imie}" />
 								</div>
 								<div class="form-group">
 									<form:input type="text" path="nazwisko" placeholder="Nazwisko"
-										class="form-control" />
+										class="form-control" value="${user.nazwisko}" />
 								</div>
 								<div class="form-group">
 									<form:input type="text" path="firma" placeholder="Firma"
-										class="form-control" />
+										class="form-control" value="${user.firma}" />
 								</div>
 								<div class="form-group">
 									<form:input type="text" path="telefon"
-										placeholder="Numer telefonu" class="form-control" />
+										placeholder="Numer telefonu" class="form-control"
+										value="${user.telefon}" />
 								</div>
 								<div class="form-group">
 									<form:input type="text" path="ulica" placeholder="Ulica"
-										class="form-control" />
+										class="form-control" value="${user.ulica}" />
 								</div>
 								<div class="form-group">
 									<form:input type="text" path="kod" placeholder="Kod pocztowy"
-										class="form-control" />
+										class="form-control" value="${user.kod}" />
 								</div>
 								<div class="form-group">
 									<form:input type="text" path="miasto" placeholder="Miasto"
-										class="form-control" />
+										class="form-control" value="${user.miasto}" />
 								</div>
 								<div class="form-group">
 									<form:input type="text" path="region" placeholder="Region"
-										class="form-control" />
+										class="form-control" value="${user.region}" />
 								</div>
 								<div class="form-group">
 									<form:input type="text" path="nip" placeholder="NIP"
-										class="form-control" />
+										class="form-control" value="${user.nip}" />
 								</div>
 
-								<button type="submit" class="btn">Dodaj użytkownika</button>
-								<span class="text-danger">Przed dodaniem upewnij się o
-									poprawności danych</span>
+								<button type="submit" class="btn">Zatwierdź edycję</button>
 
-								<input type="hidden" name="type" value="${type}" />
+								<form:input type="hidden" path="email" value="${user.email}" />
+
+								<form:input type="hidden" path="typ" value="${user.typ}" />
 
 								<input type="hidden" name="${_csrf.parameterName}"
 									value="${_csrf.token}" />
@@ -332,59 +240,50 @@
 							</div>
 						</div>
 						<div class="form-bottom">
-							<form:form name="addUserForm" action="${validate_url}"
+							<form:form name="addUserForm" action="${processUrl}"
 								method="POST" modelAttribute="user">
 								<div class="form-group">
-									<form:input type="text" path="email" placeholder="Email"
-										class="form-control" />
-									<span class="text-danger">Błędny adres email uniemożliwi
-										korzystanie z systemu</span>
-								</div>
-								<div class="form-group">
 									<form:input type="text" path="imie" placeholder="Imię"
-										class="form-control" />
+										class="form-control" value="${user.imie}" />
 								</div>
 								<div class="form-group">
 									<form:input type="text" path="nazwisko" placeholder="Nazwisko"
-										class="form-control" />
-								</div>
-								<div class="form-group">
-									<form:select class="form-control" path="towarzystwo">
-										<c:forEach var="listValue" items="${towarzystwa}">
-											<option>${listValue}</option>
-										</c:forEach>
-									</form:select>
+										class="form-control" value="${user.nazwisko}" />
 								</div>
 								<div class="form-group">
 									<form:input type="text" path="telefon"
-										placeholder="Numer telefonu" class="form-control" />
+										placeholder="Numer telefonu" class="form-control"
+										value="${user.telefon}" />
 								</div>
 								<div class="form-group">
 									<form:input type="text" path="ulica" placeholder="Ulica"
-										class="form-control" />
+										class="form-control" value="${user.ulica}" />
 								</div>
 								<div class="form-group">
 									<form:input type="text" path="kod" placeholder="Kod pocztowy"
-										class="form-control" />
+										class="form-control" value="${user.kod}" />
 								</div>
 								<div class="form-group">
 									<form:input type="text" path="miasto" placeholder="Miasto"
-										class="form-control" />
+										class="form-control" value="${user.miasto}" />
 								</div>
 								<div class="form-group">
 									<form:input type="text" path="region" placeholder="Region"
-										class="form-control" />
+										class="form-control" value="${user.region}" />
 								</div>
 								<div class="form-group">
 									<form:input type="text" path="nip" placeholder="NIP"
-										class="form-control" />
+										class="form-control" value="${user.nip}" />
 								</div>
 
-								<button type="submit" class="btn">Dodaj użytkownika</button>
-								<span class="text-danger">Przed dodaniem upewnij się o
-									poprawności danych</span>
+								<button type="submit" class="btn">Zatwierdź edycję</button>
 
-								<input type="hidden" name="type" value="${type}" />
+								<form:input type="hidden" path="email" value="${user.email}" />
+
+								<form:input type="hidden" path="towarzystwo"
+									value="${user.towarzystwo}" />
+
+								<form:input type="hidden" path="typ" value="${user.typ}" />
 
 								<input type="hidden" name="${_csrf.parameterName}"
 									value="${_csrf.token}" />

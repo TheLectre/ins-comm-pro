@@ -14,12 +14,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 public class HibernateConfig {
-	
+
 	@Bean
 	public SessionFactory sessionFactory(BasicDataSource basicDataSource) {
-		LocalSessionFactoryBuilder builder = new LocalSessionFactoryBuilder(basicDataSource);
+		LocalSessionFactoryBuilder builder = new LocalSessionFactoryBuilder(
+				basicDataSource);
 
-		builder.scanPackages("application.*").addProperties(getHibernateProperties());
+		builder.scanPackages("application.*").addProperties(
+				getHibernateProperties());
 
 		return builder.buildSessionFactory();
 	}
@@ -31,11 +33,11 @@ public class HibernateConfig {
 	}
 
 	private Properties getHibernateProperties() {
-        Properties prop = new Properties();
-        prop.put("hibernate.format_sql", "true");
-        prop.put("hibernate.show_sql", "true");
-        prop.put("hibernate.dialect", 
-            "org.hibernate.dialect.MySQLDialect");
-        return prop;
-}
+		Properties prop = new Properties();
+		prop.put("hibernate.format_sql", "false");
+		prop.put("hibernate.show_sql", "false");
+		prop.put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+
+		return prop;
+	}
 }

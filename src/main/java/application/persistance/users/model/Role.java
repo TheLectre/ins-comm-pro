@@ -11,26 +11,31 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-
 @Entity
-@Table(name="roles", uniqueConstraints = @UniqueConstraint(columnNames = { "email", "role" }))
+@Table(name = "roles", uniqueConstraints = @UniqueConstraint(columnNames = {
+		"email", "role" }))
 public class Role {
-	
+
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Integer id;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "email", nullable = false)
 	private User user;
-	
-	@Column(name="role", nullable=false)
+
+	@Column(name = "role", nullable = false)
 	private String role;
-	
+
 	public Role() {
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Role [id=" + id + ", user=" + user + ", role=" + role + "]";
+	}
+
 	public Role(User user, String role) {
 		this.user = user;
 		this.role = role;

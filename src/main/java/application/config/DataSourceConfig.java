@@ -5,33 +5,39 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
-@PropertySource("classpath:/private/db.properties")
+@PropertySource(value = "classpath:private/db.properties")
 @Configuration
 public class DataSourceConfig {
 
-	@Value("com.mysql.jdbc.Driver")
+	@Value("${db.driverClassName}")
 	private String driverClassName;
-	
-	@Value("jdbc:mysql://localhost:3306/cpro")
+
+	@Value("${db.url}")
 	private String url;
-	
-	@Value("user")
+
+	@Value("${db.username}")
 	private String username;
-	
-	@Value("password")
+
+	@Value("${db.password}")
 	private String password;
-	
-	@Bean(name="dataSource")
+
+	@Bean(name = "dataSource")
 	public BasicDataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
-		
-		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/cpro");
-		dataSource.setUsername("user");
-		dataSource.setPassword("password");
-		
+
+		dataSource.setDriverClassName(driverClassName);
+		dataSource.setUrl(url);
+		dataSource.setUsername(username);
+		dataSource.setPassword(password);
+
 		return dataSource;
 	}
+	
+	@Bean
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
 
 }

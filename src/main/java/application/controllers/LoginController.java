@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LoginController {
-	
-	@RequestMapping(value={"/", "/home"}, method=RequestMethod.GET)
+
+	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
 	public String printHomePage() {
 		return "home";
 	}
-	
+
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String printLoginPage(
 			@RequestParam(value = "error", required = false) boolean error,
@@ -25,8 +25,8 @@ public class LoginController {
 
 		return "login";
 	}
-	
-	@RequestMapping(value={"/403"})
+
+	@RequestMapping(value = { "/403" })
 	public String print403Page(ModelMap model) {
 		return "403";
 	}

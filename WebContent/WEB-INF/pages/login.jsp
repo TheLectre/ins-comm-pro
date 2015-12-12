@@ -4,10 +4,10 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
 <title>Polisafe - zaloguj się</title>
-<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link
@@ -48,7 +48,7 @@
 							</div>
 						</div>
 						<div class="form-bottom">
-							<form name="loginForm" action="<c:url value='/login' />"
+							<form name="loginForm" accept-charset="UTF-8" action="<c:url value='/login' />"
 								method="POST" class="login-form">
 								<div class="form-group">
 									<input type="text" name="email" placeholder="Email..."

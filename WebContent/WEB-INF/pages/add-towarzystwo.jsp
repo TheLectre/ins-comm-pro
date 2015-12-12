@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	response.setCharacterEncoding("UTF-8");
+	request.setCharacterEncoding("UTF-8");
+%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
 <title>Polisafe - Dodawanie użytkownika</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -16,6 +18,8 @@
 	type="text/css" rel="stylesheet">
 <link href="<c:url value="/bootstrap/css/navbar.css" />" type="text/css"
 	rel="stylesheet">
+<link href="<c:url value="/bootstrap/css/form-elements.css" />"
+	type="text/css" rel="stylesheet">
 <link href="<c:url value="/bootstrap/css/form.css" />" type="text/css"
 	rel="stylesheet">
 
@@ -71,51 +75,65 @@
 	</nav>
 
 
-
 	<div class="container">
 
 		<div class="row text-center">
 			<div class="col-md-12">
-				<h1>Witamy w systemie Polisafe</h1>
-				<h2>Zalogowany jako: ${pageContext.request.userPrincipal.name}</h2>
+				<h1>Dodawanie Towarzystwa Ubezpieczeniowego</h1>
+				<h2>Podaj dane towarzystwa</h2>
 			</div>
 		</div>
 
 		<hr>
+		
+		<c:if test="${result == 'success'}">
+			<div class="row text-center">
+				<div class="alert alert-success">
+					<strong>Sukces!</strong> Pomyślnie dodano towarzystwo.
+				</div>
+				<hr>
+			</div>
+		</c:if>
 
-		<div class="row text-center">
-			<sec:authorize access="hasRole('ROLE_ADDUSER')">
-				<div class="col-md-6">
-					<div class="well">
-						<h2>Dodaj użytkownika</h2>
-						<br>
-						<p>Wybierz uprawnienia i wypełnij formularz.</p>
-						<a class="btn btn-lg btn-warning"
-							href="<c:url value="/adduser" />">Dalej</a>
+		<div class="row">
+			<div class="col-sm-6 col-sm-offset-3 form-box">
+				<div class="form-top">
+					<div class="form-top-right">
+						<i class="fa fa-lock"></i>
 					</div>
 				</div>
-			</sec:authorize>
-			<sec:authorize access="hasRole('ROLE_VIEWUSERS')">
-			<div class="col-md-6">
-				<div class="well">
-					<h2>Lista użytkowników</h2>
-					<br>
-					<p>Przeglądaj lub modyfikuj istniejących użytkowników.</p>
-					<a class="btn btn-lg btn-warning" href="<c:url value="/user-list" />">Dalej</a>
+				<div class="form-bottom">
+					<form name="addForm"
+						action="<c:url value="/add-towarzystwo/upload?${_csrf.parameterName}=${_csrf.token}" />"
+						method="POST" class="login-form" enctype="multipart/form-data">
+						<div class="form-group">
+							<input type="text" name="nazwa" placeholder="Nazwa"
+								class="form-username form-control">
+						</div>
+
+						<div class="form-group">
+							<input type="text" name="oc" placeholder="Poziom szkodowy OC w %"
+								class="form-password form-control">
+						</div>
+
+						<div class="form-group">
+							<input type="text" name="ac" placeholder="Poziom szkodowy AC w %"
+								class="form-password form-control">
+						</div>
+
+						<div class="form-group">
+							<input type="file" name="logo" placeholder="Logo"
+								class="form-password form-control" style="height: 50px">
+							<span class="text-danger">Brak pliku może skutkować błędami. Plik musi być obrazkiem.</span> <br>
+
+						</div>
+
+						<button type="submit" class="btn">Zatwierdź</button>
+					</form>
 				</div>
 			</div>
-			</sec:authorize>
-			<sec:authorize access="hasRole('ROLE_ADDTOWARZYSTWO')">
-			<div class="col-md-6">
-				<div class="well">
-					<h2>Dodaj TU</h2>
-					<br>
-					<p>Wypełnij formularz i załącz logo towarzystwa.</p>
-					<a class="btn btn-lg btn-warning" href="<c:url value="/add-towarzystwo" />">Dalej</a>
-				</div>
-			</div>
-			</sec:authorize>
 		</div>
+
 	</div>
 
 </body>
