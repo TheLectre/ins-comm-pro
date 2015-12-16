@@ -31,12 +31,6 @@ public class User {
 	@Column(name="nazwisko")
 	private String nazwisko;
 	
-	@Column(name="firma")
-	private String firma;
-	
-	@Column(name="towarzystwo")
-	private String towarzystwo;
-	
 	@Column(name="telefon")
 	private String telefon;
 	
@@ -54,6 +48,27 @@ public class User {
 	
 	@Column(name="nip")
 	private String nip;
+	
+	@Column(name="klient_firma")
+	private String firma;
+	
+	@Column(name="klient_agent")
+	private String agent; //jako string, ta sama klasa
+	
+	@Column(name="klient_floty")
+	private Boolean klientFloty;
+	
+	@Column(name="klient_gwarancje")
+	private Boolean klientGwarancje;
+	
+	@Column(name="klient_majatek_i_oc")
+	private Boolean klientMajatekIOc;
+	
+	@Column(name="klient_grupowe")
+	private Boolean klientGrupowe;
+	
+	@Column(name="towarzystwo_nazwa")
+	private String towarzystwo; //dajemy jako String, jesli potrzeba to zmieniamy
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Role> role = new HashSet<>();
@@ -68,8 +83,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [email=" + email + ", imie=" + imie + ", nazwisko="
-				+ nazwisko + "]";
+		return imie + " " + nazwisko;
 	}
 
 	public Set<Role> getRole() {
@@ -118,6 +132,38 @@ public class User {
 
 	public void setNazwisko(String nazwisko) {
 		this.nazwisko = nazwisko;
+	}
+	
+	public Boolean getKlientFloty() {
+		return klientFloty;
+	}
+
+	public void setKlientFloty(Boolean klientFloty) {
+		this.klientFloty = klientFloty;
+	}
+
+	public Boolean getKlientGwarancje() {
+		return klientGwarancje;
+	}
+
+	public void setKlientGwarancje(Boolean klientGwarancje) {
+		this.klientGwarancje = klientGwarancje;
+	}
+
+	public Boolean getKlientMajatekIOc() {
+		return klientMajatekIOc;
+	}
+
+	public void setKlientMajatekIOc(Boolean klientMajatekIOc) {
+		this.klientMajatekIOc = klientMajatekIOc;
+	}
+
+	public Boolean getKlientGrupowe() {
+		return klientGrupowe;
+	}
+
+	public void setKlientGrupowe(Boolean klientGrupowe) {
+		this.klientGrupowe = klientGrupowe;
 	}
 
 	public String getFirma() {
@@ -182,6 +228,14 @@ public class User {
 
 	public void setNip(String nip) {
 		this.nip = nip;
+	}
+
+	public String getAgent() {
+		return agent;
+	}
+
+	public void setAgent(String agent) {
+		this.agent = agent;
 	}
 
 }

@@ -166,13 +166,14 @@
 						<th>Email</th>
 						<th>Imię</th>
 						<th>Nazwisko</th>
-						<th>Firma</th>
 						<th>Telefon</th>
 						<th>Ulica</th>
 						<th>Kod pocztowy</th>
 						<th>Miasto</th>
 						<th>Region</th>
 						<th>NIP</th>
+						<th>Firma</th>
+						<th>Agent</th>
 						<sec:authorize access="hasRole('ROLE_EDITUSER')">
 							<th>Edycja</th>
 						</sec:authorize>
@@ -184,13 +185,14 @@
 							<td>${listValue.email}</td>
 							<td>${listValue.imie}</td>
 							<td>${listValue.nazwisko}</td>
-							<td>${listValue.firma}</td>
 							<td>${listValue.telefon}</td>
 							<td>${listValue.ulica}</td>
 							<td>${listValue.kod}</td>
 							<td>${listValue.miasto}</td>
 							<td>${listValue.region}</td>
 							<td>${listValue.nip}</td>
+							<td>${listValue.firma}</td>
+							<td>${listValue.agent}</td>
 
 							<td><form action="<c:url value="/user-list/edit-user" />"
 									method="POST">
@@ -213,13 +215,13 @@
 						<th>Email</th>
 						<th>Imię</th>
 						<th>Nazwisko</th>
-						<th>Towarzystwo</th>
 						<th>Telefon</th>
 						<th>Ulica</th>
 						<th>Kod pocztowy</th>
 						<th>Miasto</th>
 						<th>Region</th>
 						<th>NIP</th>
+						<th>Towarzystwo</th>
 						<sec:authorize access="hasRole('ROLE_EDITUSER')">
 							<th>Edycja</th>
 						</sec:authorize>
@@ -231,14 +233,13 @@
 							<td>${listValue.email}</td>
 							<td>${listValue.imie}</td>
 							<td>${listValue.nazwisko}</td>
-							<td>${listValue.towarzystwo}</td>
 							<td>${listValue.telefon}</td>
 							<td>${listValue.ulica}</td>
 							<td>${listValue.kod}</td>
 							<td>${listValue.miasto}</td>
 							<td>${listValue.region}</td>
 							<td>${listValue.nip}</td>
-
+							<td>${listValue.towarzystwo}</td>
 							<td><form action="<c:url value="/user-list/edit-user" />"
 									method="POST">
 									<input type="hidden" value="${listValue.email}" name="email">

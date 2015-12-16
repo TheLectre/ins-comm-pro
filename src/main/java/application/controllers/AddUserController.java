@@ -19,7 +19,7 @@ public class AddUserController {
 
 	@Autowired
 	UserDao usersRepository;
-	
+
 	@Autowired
 	TowarzystwoDao towarzystwaRepository;
 
@@ -30,31 +30,46 @@ public class AddUserController {
 			ModelMap model) {
 
 		User user = new User();
-		
+
 		model.addAttribute("user", user);
 		model.addAttribute("type", type);
 		model.addAttribute("result", result);
 
-		model.addAttribute("towarzystwa", towarzystwaRepository.getAll());
-		
+		if (type != null && type.equals("klient")) {
+			model.addAttribute("agenci",
+					usersRepository.getAllUsersOfType("agent"));
+		} else if (type != null && type.equals("towarzystwo")) {
+			model.addAttribute("towarzystwa", towarzystwaRepository.getAll());
+		}
+
 		return "add-user";
 	}
 
 	@RequestMapping(value = "/adduser/validate", method = RequestMethod.POST)
-	public String processRegistration(
-			@ModelAttribute("user") User user, BindingResult result,
+	public String processRegistration(@ModelAttribute("user") User user,
+			BindingResult result,
 			@RequestParam(value = "type", required = true) String type,
+			//@RequestParam(value = "floty", required = true) String floty,
+			//@RequestParam(value = "gwarancje", required = true) String gwarancje,
+			//@RequestParam(value = "majatekIOc", required = true) String majatekIOc,
+			//@RequestParam(value = "grupowe", required = true) String grupowe,
 			ModelMap model) {
 
 		if (result.hasErrors()) {
 			return "error";
 		}
-		
+
 		user.setTyp(type);
 		user.setRole(RolesProvider.provideRoles(user));
 		
+		//klient stuff
+		//user.setKlientFloty(floty);
+		//user.setKlientGwarancje(gwarancje);
+		//user.setKlientMajatekIOc(majatekIOc);
+		//user.setKlientGrupowe(grupowe);
+
 		if (!usersRepository.addUser(user)) {
-													
+
 			model.addAttribute("result", "error");
 
 			return "add-user";

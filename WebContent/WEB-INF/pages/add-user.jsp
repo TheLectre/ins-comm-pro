@@ -22,6 +22,8 @@
 	type="text/css" rel="stylesheet">
 <link href="<c:url value="/bootstrap/css/form.css" />" type="text/css"
 	rel="stylesheet">
+<link href="<c:url value="/bootstrap/css/checkbox.css" />"
+	type="text/css" rel="stylesheet">
 
 <script src="<c:url value="/bootstrap/js/jquery-1.11.1.min.js" />"></script>
 <script src="<c:url value="/bootstrap/js/jquery.backstretch.min.js" />"></script>
@@ -178,6 +180,13 @@
 						<div class="form-bottom">
 							<form:form name="addUserForm" action="${validate_url}"
 								method="POST" modelAttribute="user">
+
+								<br>
+								<div class="text-center">
+									<span class="text-info"><strong>Dane</strong></span>
+								</div>
+								<br>
+
 								<div class="form-group">
 									<form:input type="text" path="email" placeholder="Email"
 										class="form-control" />
@@ -220,6 +229,13 @@
 						<div class="form-bottom">
 							<form:form name="addUserForm" action="${validate_url}"
 								method="POST" modelAttribute="user">
+
+								<br>
+								<div class="text-center">
+									<span class="text-info"><strong>Dane</strong></span>
+								</div>
+								<br>
+
 								<div class="form-group">
 									<form:input type="text" path="email" placeholder="Email"
 										class="form-control" />
@@ -260,9 +276,34 @@
 								<i class="fa fa-lock"></i>
 							</div>
 						</div>
+
+
+						<script type="text/javascript">
+							function onSubmit() {
+								document.getElementById('hiddenfloty').value = document
+										.getElementById('floty-checkbox').value;
+								document.getElementById('hiddengwarancje').value = document
+										.getElementById('gwarancje-checkbox').value;
+								document.getElementById('hiddenmajatek').value = document
+										.getElementById('majatek-checkbox').value;
+								document.getElementById('hiddengrupowe').value = document
+										.getElementById('grupowe-checkbox').value;
+
+								alert(document.getElementById('hiddenfloty').value);
+							}
+						</script>
+
+
 						<div class="form-bottom">
 							<form:form name="addUserForm" action="${validate_url}"
-								method="POST" modelAttribute="user">
+								method="POST" modelAttribute="user" onsubmit="onSubmit();">
+
+								<br>
+								<div class="text-center">
+									<span class="text-info"><strong>Dane</strong></span>
+								</div>
+								<br>
+
 								<div class="form-group">
 									<form:input type="text" path="email" placeholder="Email"
 										class="form-control" />
@@ -306,15 +347,90 @@
 										class="form-control" />
 								</div>
 
+								<br>
+								<div class="text-center">
+									<span class="text-info"><strong>Ubezpieczenia</strong></span>
+								</div>
+								<br>
+
+								<div class="form-group">
+									<input type="checkbox" name="floty-checkbox"
+										id="floty-checkbox" autocomplete="off" name="floty" />
+									<div class="btn-group">
+										<label for="floty-checkbox" class="btn btn-success"> <span
+											class="glyphicon glyphicon-ok"></span> <span> </span>
+										</label> <label for="floty-checkbox" class="btn btn-default active">
+											Floty </label>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<input type="checkbox" name="gwarancje-checkbox"
+										id="gwarancje-checkbox" autocomplete="off" name="gwarancje" />
+									<div class="btn-group">
+										<label for="gwarancje-checkbox" class="btn btn-success">
+											<span class="glyphicon glyphicon-ok"></span> <span> </span>
+										</label> <label for="gwarancje-checkbox"
+											class="btn btn-default active"> Gwarancje </label>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<input type="checkbox" name="majatek-checkbox"
+										id="majatek-checkbox" autocomplete="off" name="majatekIOc" />
+									<div class="btn-group">
+										<label for="majatek-checkbox" class="btn btn-success">
+											<span class="glyphicon glyphicon-ok"></span> <span> </span>
+										</label> <label for="majatek-checkbox" class="btn btn-default active">
+											Majątek i OC </label>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<input type="checkbox" name="grupowe-checkbox"
+										id="grupowe-checkbox" autocomplete="off" name="grupowe" />
+									<div class="btn-group">
+										<label for="grupowe-checkbox" class="btn btn-success">
+											<span class="glyphicon glyphicon-ok"></span> <span> </span>
+										</label> <label for="grupowe-checkbox" class="btn btn-default active">
+											Grupowe </label>
+									</div>
+								</div>
+
+								<br>
+								<div class="text-center">
+									<span class="text-info"><strong>Agent
+											zarządzający</strong></span>
+								</div>
+								<br>
+
+								<div class="form-group">
+									<form:select class="form-control" path="agent">
+										<c:forEach var="listValue" items="${agenci}">
+											<option>${listValue}</option>
+										</c:forEach>
+									</form:select>
+								</div>
+
 								<button type="submit" class="btn">Dodaj użytkownika</button>
 								<span class="text-danger">Przed dodaniem upewnij się o
 									poprawności danych</span>
 
 								<input type="hidden" name="type" value="${type}" />
 
+								<form:input type="hidden" path="klientFloty" id="hiddenfloty" />
+								<form:input type="hidden" path="klientGwarancje"
+									id="hiddengwarancje" />
+								<form:input type="hidden" path="klientMajatekIOc"
+									id="hiddenmajatek" />
+								<form:input type="hidden" path="klientGrupowe"
+									id="hiddengrupowe" />
+
 								<input type="hidden" name="${_csrf.parameterName}"
 									value="${_csrf.token}" />
 							</form:form>
+
+
 						</div>
 					</div>
 				</div>
@@ -334,6 +450,13 @@
 						<div class="form-bottom">
 							<form:form name="addUserForm" action="${validate_url}"
 								method="POST" modelAttribute="user">
+
+								<br>
+								<div class="text-center">
+									<span class="text-info"><strong>Dane</strong></span>
+								</div>
+								<br>
+
 								<div class="form-group">
 									<form:input type="text" path="email" placeholder="Email"
 										class="form-control" />
@@ -348,6 +471,18 @@
 									<form:input type="text" path="nazwisko" placeholder="Nazwisko"
 										class="form-control" />
 								</div>
+
+								<div class="form-group">
+									<form:input type="text" path="telefon"
+										placeholder="Numer telefonu" class="form-control" />
+								</div>
+
+								<br>
+								<div class="text-center">
+									<span class="text-info"><strong>Dane</strong></span>
+								</div>
+								<br>
+
 								<div class="form-group">
 									<form:select class="form-control" path="towarzystwo">
 										<c:forEach var="listValue" items="${towarzystwa}">
@@ -355,34 +490,11 @@
 										</c:forEach>
 									</form:select>
 								</div>
-								<div class="form-group">
-									<form:input type="text" path="telefon"
-										placeholder="Numer telefonu" class="form-control" />
-								</div>
-								<div class="form-group">
-									<form:input type="text" path="ulica" placeholder="Ulica"
-										class="form-control" />
-								</div>
-								<div class="form-group">
-									<form:input type="text" path="kod" placeholder="Kod pocztowy"
-										class="form-control" />
-								</div>
-								<div class="form-group">
-									<form:input type="text" path="miasto" placeholder="Miasto"
-										class="form-control" />
-								</div>
-								<div class="form-group">
-									<form:input type="text" path="region" placeholder="Region"
-										class="form-control" />
-								</div>
-								<div class="form-group">
-									<form:input type="text" path="nip" placeholder="NIP"
-										class="form-control" />
-								</div>
 
 								<button type="submit" class="btn">Dodaj użytkownika</button>
 								<span class="text-danger">Przed dodaniem upewnij się o
 									poprawności danych</span>
+
 
 								<input type="hidden" name="type" value="${type}" />
 
@@ -394,8 +506,6 @@
 				</div>
 			</div>
 		</c:if>
-
 	</div>
-
 </body>
 </html>

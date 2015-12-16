@@ -114,7 +114,7 @@
 								<button type="submit" class="btn">Zatwierdź edycję</button>
 
 								<form:input type="hidden" path="email" value="${user.email}" />
-								
+
 								<form:input type="hidden" path="typ" value="${user.typ}" />
 
 								<input type="hidden" name="${_csrf.parameterName}"
@@ -151,7 +151,7 @@
 								<button type="submit" class="btn">Zatwierdź edycję</button>
 
 								<form:input type="hidden" path="email" value="${user.email}" />
-								
+
 								<form:input type="hidden" path="typ" value="${user.typ}" />
 
 								<input type="hidden" name="${_csrf.parameterName}"
@@ -185,10 +185,6 @@
 										class="form-control" value="${user.nazwisko}" />
 								</div>
 								<div class="form-group">
-									<form:input type="text" path="firma" placeholder="Firma"
-										class="form-control" value="${user.firma}" />
-								</div>
-								<div class="form-group">
 									<form:input type="text" path="telefon"
 										placeholder="Numer telefonu" class="form-control"
 										value="${user.telefon}" />
@@ -213,6 +209,21 @@
 									<form:input type="text" path="nip" placeholder="NIP"
 										class="form-control" value="${user.nip}" />
 								</div>
+								<div class="form-group">
+									<form:input type="text" path="firma" placeholder="Firma"
+										class="form-control" value="${user.firma}" />
+								</div>
+								<div class="form-group">
+									<div class="text-center">
+										<span class="text-info"><strong>Agent zarządzający</strong></span>
+									</div>
+									<form:select class="form-control" path="agent" value="${user.agent}">
+										<c:forEach var="listValue" items="${agenci}">
+											<option>${listValue}</option>
+										</c:forEach>
+									</form:select>
+								</div>
+								
 
 								<button type="submit" class="btn">Zatwierdź edycję</button>
 
@@ -254,26 +265,6 @@
 									<form:input type="text" path="telefon"
 										placeholder="Numer telefonu" class="form-control"
 										value="${user.telefon}" />
-								</div>
-								<div class="form-group">
-									<form:input type="text" path="ulica" placeholder="Ulica"
-										class="form-control" value="${user.ulica}" />
-								</div>
-								<div class="form-group">
-									<form:input type="text" path="kod" placeholder="Kod pocztowy"
-										class="form-control" value="${user.kod}" />
-								</div>
-								<div class="form-group">
-									<form:input type="text" path="miasto" placeholder="Miasto"
-										class="form-control" value="${user.miasto}" />
-								</div>
-								<div class="form-group">
-									<form:input type="text" path="region" placeholder="Region"
-										class="form-control" value="${user.region}" />
-								</div>
-								<div class="form-group">
-									<form:input type="text" path="nip" placeholder="NIP"
-										class="form-control" value="${user.nip}" />
 								</div>
 
 								<button type="submit" class="btn">Zatwierdź edycję</button>

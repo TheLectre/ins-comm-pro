@@ -43,6 +43,10 @@ public class UserListController {
 		
 		User user = repo.findByEmail(email);
 		
+		if(user.getTyp().equals("klient")) {
+			model.addAttribute("agenci", repo.getAllUsersOfType("agent"));
+		}
+		
 		model.addAttribute("user", user);
 
 		return "edit-user";
