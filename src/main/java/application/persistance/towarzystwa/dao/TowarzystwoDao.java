@@ -8,4 +8,6 @@ public interface TowarzystwoDao {
 	void addTowarzystwo(Towarzystwo tow);
 	
 	List<Towarzystwo> getAll();
+	
+	Towarzystwo getTowarzystwo(String name);
 }

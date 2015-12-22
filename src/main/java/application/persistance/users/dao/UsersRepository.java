@@ -26,6 +26,7 @@ public class UsersRepository implements UserDao {
 				.createQuery("from User where email = :email")
 				.setParameter("email", email).uniqueResult();
 
+		
 		return user;
 	}
 
@@ -50,7 +51,9 @@ public class UsersRepository implements UserDao {
 	public void updateUser(User user) {
 		
 		Session session = sessionFactory.getCurrentSession();
+		
 		session.update(user);
+		
 		
 	}
 
@@ -62,6 +65,18 @@ public class UsersRepository implements UserDao {
 		Session session = sessionFactory.getCurrentSession();
 		
 		List<User> users = session.createQuery("from User where typ = :typ").setParameter("typ", type).list();
+		
+		return users;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public List<User> getPracownicyTu(String towarzystwo) {
+		
+		Session session = sessionFactory.getCurrentSession();
+		
+		List<User> users = session.createQuery("from User where typ = 'towarzystwo' and towarzystwo = :tu ").setParameter("tu", towarzystwo).list();
 		
 		return users;
 	}

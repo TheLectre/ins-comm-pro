@@ -1,13 +1,19 @@
 package application.persistance.users.model;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -55,6 +61,12 @@ public class User {
 	@Column(name="klient_agent")
 	private String agent; //jako string, ta sama klasa
 	
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name="pracownicy", joinColumns=@JoinColumn(name="email"))
+	@MapKeyColumn(name="towarzystwo", nullable=false)
+	@Column(name="pracownik")
+	private Map<String, String> pracownicy;
+	
 	@Column(name="klient_floty")
 	private Boolean klientFloty;
 	
@@ -74,16 +86,18 @@ public class User {
 	private Set<Role> role = new HashSet<>();
 
 	public User() {
+		pracownicy = new HashMap<>();
 	}
 
 	public User(String email, String password) {
+		this();
 		this.email = email;
 		this.password = password;
 	}
 
 	@Override
 	public String toString() {
-		return imie + " " + nazwisko;
+		return email;
 	}
 
 	public Set<Role> getRole() {
@@ -124,6 +138,14 @@ public class User {
 
 	public void setImie(String imie) {
 		this.imie = imie;
+	}
+	
+	public Map<String, String> getPracownicy() {
+		return pracownicy;
+	}
+
+	public void setPracownicy(Map<String, String> pracownicy) {
+		this.pracownicy = pracownicy;
 	}
 
 	public String getNazwisko() {

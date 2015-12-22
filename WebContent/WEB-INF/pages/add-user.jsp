@@ -280,19 +280,16 @@
 
 						<script type="text/javascript">
 							function onSubmit() {
-								document.getElementById('hiddenfloty').value = document
-										.getElementById('floty-checkbox').value;
-								document.getElementById('hiddengwarancje').value = document
-										.getElementById('gwarancje-checkbox').value;
-								document.getElementById('hiddenmajatek').value = document
-										.getElementById('majatek-checkbox').value;
-								document.getElementById('hiddengrupowe').value = document
-										.getElementById('grupowe-checkbox').value;
-
-								alert(document.getElementById('hiddenfloty').value);
+								document.getElementById('hiddenfloty').checked = document
+										.getElementById('floty-checkbox').checked;
+								document.getElementById('hiddengwarancje').checked = document
+										.getElementById('gwarancje-checkbox').checked;
+								document.getElementById('hiddenmajatek').checked = document
+										.getElementById('majatek-checkbox').checked;
+								document.getElementById('hiddengrupowe').checked = document
+										.getElementById('grupowe-checkbox').checked;
 							}
 						</script>
-
 
 						<div class="form-bottom">
 							<form:form name="addUserForm" action="${validate_url}"
@@ -412,24 +409,56 @@
 									</form:select>
 								</div>
 
-								<button type="submit" class="btn">Dodaj użytkownika</button>
-								<span class="text-danger">Przed dodaniem upewnij się o
-									poprawności danych</span>
-
 								<input type="hidden" name="type" value="${type}" />
 
-								<form:input type="hidden" path="klientFloty" id="hiddenfloty" />
-								<form:input type="hidden" path="klientGwarancje"
+								<form:checkbox style="opacity:0;" path="klientFloty"
+									id="hiddenfloty" />
+								<form:checkbox style="opacity:0;" path="klientGwarancje"
 									id="hiddengwarancje" />
-								<form:input type="hidden" path="klientMajatekIOc"
+								<form:checkbox style="opacity:0;" path="klientMajatekIOc"
 									id="hiddenmajatek" />
-								<form:input type="hidden" path="klientGrupowe"
+								<form:checkbox style="opacity:0;" path="klientGrupowe"
 									id="hiddengrupowe" />
+
+
+								<br>
+								<div class="text-center">
+									<span class="text-info"><strong>Towarzystwa i
+											pracownicy</strong></span>
+								</div>
+								<br>
+
+								<div class="text-center">
+									<div class="form-group">
+										<c:forEach var="listValue" items="${tus}">
+
+											<div class="text-center">
+												<img
+													src="<c:url value="/images/towarzystwa/${listValue.nazwa}.png"/>"
+													alt="${listValue.nazwa}" height="160" />
+											</div>
+
+											<br>
+
+											<form:select path="pracownicy['${listValue.nazwa}']">
+												<c:forEach var="minorValue" items="${listValue.pracownicy}">
+													<option>${minorValue}</option>
+												</c:forEach>
+											</form:select>
+
+											<hr>
+
+										</c:forEach>
+									</div>
+								</div>
 
 								<input type="hidden" name="${_csrf.parameterName}"
 									value="${_csrf.token}" />
-							</form:form>
 
+								<button type="submit" class="btn">Dodaj użytkownika</button>
+								<span class="text-danger">Przed dodaniem upewnij się o
+									poprawności danych</span>
+							</form:form>
 
 						</div>
 					</div>

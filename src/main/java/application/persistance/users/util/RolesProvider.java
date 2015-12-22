@@ -18,6 +18,7 @@ public class RolesProvider {
 			roles.add(new Role(user, "ROLE_VIEWUSERS"));
 			roles.add(new Role(user, "ROLE_ADDTOWARZYSTWO"));
 			roles.add(new Role(user, "ROLE_EDITUSER"));
+			roles.add(new Role(user, "ROLE_CHANGEDESCRIPTION"));
 		}
 		else if(user.getTyp().equals("agent")) {
 			roles.add(new Role(user, "ROLE_BASIC"));
@@ -25,6 +26,7 @@ public class RolesProvider {
 			roles.add(new Role(user, "ROLE_VIEWUSERS"));
 			roles.add(new Role(user, "ROLE_ADDTOWARZYSTWO"));
 			roles.add(new Role(user, "ROLE_EDITUSER"));
+			roles.add(new Role(user, "ROLE_CHANGEDESCRIPTION"));
 		}
 		else if(user.getTyp().equals("klient")) {
 			roles.add(new Role(user, "ROLE_BASIC"));

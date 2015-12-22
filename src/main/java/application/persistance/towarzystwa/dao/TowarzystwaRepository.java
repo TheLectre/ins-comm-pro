@@ -15,24 +15,32 @@ public class TowarzystwaRepository implements TowarzystwoDao {
 
 	@Autowired
 	private SessionFactory sessionFactory;
-	
-	
+
 	@Override
 	@Transactional
 	public void addTowarzystwo(Towarzystwo tow) {
 		Session session = sessionFactory.getCurrentSession();
-		
+
 		session.persist(tow);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
 	public List<Towarzystwo> getAll() {
 		Session session = sessionFactory.getCurrentSession();
-		
-		List<Towarzystwo> towarzystwa = session.createQuery("from Towarzystwo").list();
-		
+
+		List<Towarzystwo> towarzystwa = session.createQuery("from Towarzystwo")
+				.list();
+
 		return towarzystwa;
+	}
+
+	@Override
+	@Transactional
+	public Towarzystwo getTowarzystwo(String name) {
+		Session session = sessionFactory.getCurrentSession();
+
+		return (Towarzystwo)session.createQuery("from Towarzystwo where nazwa = :tName").setParameter("tName", name).uniqueResult();
 	}
 }

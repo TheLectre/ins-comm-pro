@@ -14,4 +14,6 @@ public interface UserDao {
 	
 	List<User> getAllUsersOfType(String type);
 	
+	List<User> getPracownicyTu(String towarzystwo);
+	
 }
