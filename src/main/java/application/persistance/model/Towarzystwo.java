@@ -1,4 +1,4 @@
-package application.persistance.towarzystwa.model;
+package application.persistance.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,7 +26,6 @@ public class Towarzystwo {
 	private String logoName;
 	
 	public Towarzystwo() {
-		super();
 	}
 
 	public Towarzystwo(String nazwa, Integer oc, Integer ac, byte[] logoData,

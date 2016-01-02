@@ -37,17 +37,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		filter.setForceEncoding(true);
 		http.addFilterBefore(filter, CsrfFilter.class);
 
-		http.authorizeRequests().
+		http.authorizeRequests()
+				.
 
-		antMatchers("/home", "/").access("hasRole('ROLE_BASIC')")
-				.antMatchers("/adduser").access("hasRole('ROLE_ADDUSER')")
+				antMatchers("/home", "/")
+				.access("hasRole('ROLE_BASIC')")
+				.antMatchers("/adduser")
+				.access("hasRole('ROLE_ADDUSER')")
 				.antMatchers(HttpMethod.POST, "adduser/validate")
 				.access("hasRole('ROLE_ADDUSER')")
 
 				.antMatchers(HttpMethod.POST, "adduser/change-password")
 				.access("hasRole('ROLE_BASIC')")
-				
-				.antMatchers("/user-list").access("hasRole('ROLE_VIEWUSERS')")
+
+				.antMatchers("/user-list")
+				.access("hasRole('ROLE_VIEWUSERS')")
 
 				.antMatchers("/user-list/edit-user")
 				.access("hasRole('ROLE_EDITUSER')")
@@ -58,6 +62,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.access("hasRole('ROLE_ADDTOWARZYSTWO')")
 				.antMatchers(HttpMethod.POST, "/add-towarzystwo/upload")
 				.access("hasRole('ROLE_ADDTOWARZYSTWO')")
+
+				.antMatchers("/opis-produktow", "/rodzaje-ryzyk",
+						"/rodzaje-pojazdow")
+				.access("hasRole('ROLE_CHANGEDESCRIPTION')")
+				.antMatchers(HttpMethod.POST, "/rodzaje-ryzyk/proceed",
+						"/rodzaje-pojazdow/proceed", "/rodzaje-pojazdow/add",
+						"/rodzaje-ryzyk/add", "/rodzaje-ryzyk/delete")
+				.access("hasRole('ROLE_CHANGEDESCRIPTION')")
+
+				.antMatchers("/baza-klientow", "/baza-klientow/klient",
+						"/baza-klientow/klient/pojazdy",
+						"/baza-klientow/klient/oferta")
+				.access("hasRole('ROLE_MANAGECLIENTS')")
+				.antMatchers(HttpMethod.POST, "/baza-klientow/klient/opis",
+						"/baza-klientow/klient/pojazdy/proceed")
+				.access("hasRole('ROLE_MANAGECLIENTS')")
 
 				.and().formLogin().loginPage("/login")
 				.failureUrl("/login?error=true").usernameParameter("email")

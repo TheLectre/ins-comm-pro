@@ -1,4 +1,4 @@
-package application.persistance.users.service;
+package application.persistance.service;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,8 +15,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import application.persistance.users.dao.UserDao;
-import application.persistance.users.model.Role;
+import application.persistance.dao.UserDao;
+import application.persistance.model.Role;
 
 
 @Service("usersSecurityService")
@@ -30,7 +30,7 @@ public class UsersSecurityService implements UserDetailsService {
 	public UserDetails loadUserByUsername(final String username)
 			throws UsernameNotFoundException {
 
-		application.persistance.users.model.User user = userDao
+		application.persistance.model.User user = userDao
 				.findByEmail(username);
 		List<GrantedAuthority> authorities = buildUserAuthority(user.getRole());
 
@@ -39,7 +39,7 @@ public class UsersSecurityService implements UserDetailsService {
 	}
 
 	private User buildUserForAuthentication(
-			application.persistance.users.model.User user,
+			application.persistance.model.User user,
 			List<GrantedAuthority> authorities) {
 
 		boolean enabled = true;

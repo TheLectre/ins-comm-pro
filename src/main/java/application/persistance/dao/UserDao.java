@@ -1,8 +1,8 @@
-package application.persistance.users.dao;
+package application.persistance.dao;
 
 import java.util.List;
 
-import application.persistance.users.model.User;
+import application.persistance.model.User;
 
 public interface UserDao {
 	
@@ -15,5 +15,11 @@ public interface UserDao {
 	List<User> getAllUsersOfType(String type);
 	
 	List<User> getPracownicyTu(String towarzystwo);
+	
+	List<User> getAllClients();
+	
+	List<User> getClientsOfAgent(String agentEmail);
+	
+	List<User> getClientsOfTowarzystwo(String pracownikEmail);
 	
 }

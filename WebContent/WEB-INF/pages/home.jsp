@@ -60,6 +60,10 @@
 
 				<ul class="nav navbar-nav navbar-right">
 
+
+					<li><a href="<c:url value="/kontakt" />"><span
+							class="glyphicon glyphicon-envelope"></span>Kontakt</a></li>
+
 					<li><a href="<c:url value="/change-password" />"><span
 							class="glyphicon glyphicon-wrench"></span>Zmień hasło</a></li>
 
@@ -125,6 +129,17 @@
 						<p>Zdefiniuj rodzaje ryzyk i rodzaje pojazdów</p>
 						<a class="btn btn-lg btn-warning"
 							href="<c:url value="/opis-produktow" />">Dalej</a>
+					</div>
+				</div>
+			</sec:authorize>
+			<sec:authorize access="hasRole('ROLE_MANAGECLIENTS')">
+				<div class="col-md-6">
+					<div class="well">
+						<h2>Klienci</h2>
+						<br>
+						<p>Przejrzyj twoją bazę klientów</p>
+						<a class="btn btn-lg btn-warning"
+							href="<c:url value="/baza-klientow" />">Dalej</a>
 					</div>
 				</div>
 			</sec:authorize>

@@ -1,4 +1,4 @@
-package application.persistance.towarzystwa.dao;
+package application.persistance.dao;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import application.persistance.towarzystwa.model.Towarzystwo;
+import application.persistance.model.Towarzystwo;
 
 @Repository
 public class TowarzystwaRepository implements TowarzystwoDao {

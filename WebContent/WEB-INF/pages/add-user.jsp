@@ -24,7 +24,7 @@
 	rel="stylesheet">
 <link href="<c:url value="/bootstrap/css/checkbox.css" />"
 	type="text/css" rel="stylesheet">
-
+	
 <script src="<c:url value="/bootstrap/js/jquery-1.11.1.min.js" />"></script>
 <script src="<c:url value="/bootstrap/js/jquery.backstretch.min.js" />"></script>
 <script src="<c:url value="/bootstrap/js/scripts.js" />"></script>
@@ -121,43 +121,52 @@
 		<c:if test="${type == null}">
 
 			<div class="row text-center">
-				<div class="col-md-3">
+				<div class="col-md-6">
 					<div class="well">
-						<h3>Administrator</h3>
+						<h2>Administrator</h2>
 						<br> <a class="btn btn-lg btn-warning"
 							href="<c:url value="/adduser">
 						<c:param name="type" value="admin" />
 						</c:url>">Dalej</a>
+						
+						<br>
+						<br>
 					</div>
 				</div>
 
-				<div class="col-md-3">
+				<div class="col-md-6">
 					<div class="well">
-						<h3>Agent</h3>
+						<h2>Agent</h2>
 						<br> <a class="btn btn-lg btn-warning"
 							href="<c:url value="/adduser">
 						<c:param name="type" value="agent" />
 						</c:url>">Dalej</a>
+						<br>
+						<br>
 					</div>
 				</div>
 
-				<div class="col-md-3">
+				<div class="col-md-6">
 					<div class="well">
-						<h3>Klient</h3>
+						<h2>Klient</h2>
 						<br> <a class="btn btn-lg btn-warning"
 							href="<c:url value="/adduser">
 						<c:param name="type" value="klient" />
 						</c:url>">Dalej</a>
+						<br>
+						<br>
 					</div>
 				</div>
 
-				<div class="col-md-3">
+				<div class="col-md-6">
 					<div class="well">
-						<h3>Pracownik TU</h3>
+						<h2>Pracownik TU</h2>
 						<br> <a class="btn btn-lg btn-warning"
 							href="<c:url value="/adduser">
 						<c:param name="type" value="towarzystwo" />
 						</c:url>">Dalej</a>
+						<br>
+						<br>
 					</div>
 				</div>
 			</div>
@@ -199,6 +208,10 @@
 								</div>
 								<div class="form-group">
 									<form:input type="text" path="nazwisko" placeholder="Nazwisko"
+										class="form-control" />
+								</div>
+								<div class="form-group">
+									<form:input type="text" path="telefon" placeholder="Telefon"
 										class="form-control" />
 								</div>
 								<button type="submit" class="btn">Dodaj użytkownika</button>
@@ -248,6 +261,10 @@
 								</div>
 								<div class="form-group">
 									<form:input type="text" path="nazwisko" placeholder="Nazwisko"
+										class="form-control" />
+								</div>
+								<div class="form-group">
+									<form:input type="text" path="telefon" placeholder="Telefon"
 										class="form-control" />
 								</div>
 
@@ -351,7 +368,7 @@
 								<br>
 
 								<div class="form-group">
-									<input type="checkbox" name="floty-checkbox"
+									<input type="checkbox"
 										id="floty-checkbox" autocomplete="off" name="floty" />
 									<div class="btn-group">
 										<label for="floty-checkbox" class="btn btn-success"> <span
@@ -362,7 +379,7 @@
 								</div>
 
 								<div class="form-group">
-									<input type="checkbox" name="gwarancje-checkbox"
+									<input type="checkbox"
 										id="gwarancje-checkbox" autocomplete="off" name="gwarancje" />
 									<div class="btn-group">
 										<label for="gwarancje-checkbox" class="btn btn-success">
@@ -373,7 +390,7 @@
 								</div>
 
 								<div class="form-group">
-									<input type="checkbox" name="majatek-checkbox"
+									<input type="checkbox"
 										id="majatek-checkbox" autocomplete="off" name="majatekIOc" />
 									<div class="btn-group">
 										<label for="majatek-checkbox" class="btn btn-success">
@@ -384,7 +401,7 @@
 								</div>
 
 								<div class="form-group">
-									<input type="checkbox" name="grupowe-checkbox"
+									<input type="checkbox"
 										id="grupowe-checkbox" autocomplete="off" name="grupowe" />
 									<div class="btn-group">
 										<label for="grupowe-checkbox" class="btn btn-success">
@@ -501,14 +518,10 @@
 										class="form-control" />
 								</div>
 
-								<div class="form-group">
-									<form:input type="text" path="telefon"
-										placeholder="Numer telefonu" class="form-control" />
-								</div>
-
 								<br>
+								
 								<div class="text-center">
-									<span class="text-info"><strong>Dane</strong></span>
+									<span class="text-info"><strong>Towarzystwo</strong></span>
 								</div>
 								<br>
 

@@ -114,6 +114,10 @@
 									<form:input type="text" path="nazwisko" placeholder="Nazwisko"
 										class="form-control" value="${user.nazwisko}" />
 								</div>
+								<div class="form-group">
+									<form:input type="text" path="telefon" placeholder="Telefon"
+										class="form-control" value="${user.telefon}" />
+								</div>
 								<button type="submit" class="btn">Zatwierdź edycję</button>
 
 								<form:input type="hidden" path="email" value="${user.email}" />
@@ -149,6 +153,10 @@
 								<div class="form-group">
 									<form:input type="text" path="nazwisko" placeholder="Nazwisko"
 										class="form-control" value="${user.nazwisko}" />
+								</div>
+								<div class="form-group">
+									<form:input type="text" path="telefon" placeholder="Telefon"
+										class="form-control" value="${user.telefon}" />
 								</div>
 
 								<button type="submit" class="btn">Zatwierdź edycję</button>
@@ -201,11 +209,11 @@
 								</div>
 								<br>
 
-									<form:input type="hidden" path="email" placeholder="Email"
-										class="form-control" value="${user.email}" />
-									<span class="text-danger">Błędny adres email uniemożliwi
-										korzystanie z systemu</span>
-										
+								<form:input type="hidden" path="email" placeholder="Email"
+									class="form-control" value="${user.email}" />
+								<span class="text-danger">Błędny adres email uniemożliwi
+									korzystanie z systemu</span>
+
 								<div class="form-group">
 									<form:input type="text" path="imie" placeholder="Imię"
 										class="form-control" value="${user.imie}" />
@@ -220,7 +228,8 @@
 								</div>
 								<div class="form-group">
 									<form:input type="text" path="telefon"
-										placeholder="Numer telefonu" class="form-control" value="${user.telefon}" />
+										placeholder="Numer telefonu" class="form-control"
+										value="${user.telefon}" />
 								</div>
 								<div class="form-group">
 									<form:input type="text" path="ulica" placeholder="Ulica"
@@ -250,8 +259,14 @@
 								<br>
 
 								<div class="form-group">
-									<input type="checkbox" name="floty-checkbox"
-										id="floty-checkbox" autocomplete="off" name="floty" value="${user.klientFloty}" />
+									<c:if test="${user.klientFloty == true}">
+										<input type="checkbox" name="floty-checkbox"
+											id="floty-checkbox" checked="checked" name="floty" />
+									</c:if>
+									<c:if test="${user.klientFloty == false}">
+										<input type="checkbox" name="floty-checkbox"
+											id="floty-checkbox" name="floty" />
+									</c:if>
 									<div class="btn-group">
 										<label for="floty-checkbox" class="btn btn-success"> <span
 											class="glyphicon glyphicon-ok"></span> <span> </span>
@@ -261,8 +276,14 @@
 								</div>
 
 								<div class="form-group">
-									<input type="checkbox" name="gwarancje-checkbox"
-										id="gwarancje-checkbox" autocomplete="off" name="gwarancje" value="${user.klientGwarancje}" />
+									<c:if test="${user.klientGwarancje == true}">
+										<input type="checkbox" name="gwarancje-checkbox"
+											id="gwarancje-checkbox" name="gwarancje" checked="checked" />
+									</c:if>
+									<c:if test="${user.klientGwarancje == false}">
+										<input type="checkbox" name="gwarancje-checkbox"
+											id="gwarancje-checkbox" name="gwarancje" />
+									</c:if>
 									<div class="btn-group">
 										<label for="gwarancje-checkbox" class="btn btn-success">
 											<span class="glyphicon glyphicon-ok"></span> <span> </span>
@@ -272,8 +293,14 @@
 								</div>
 
 								<div class="form-group">
-									<input type="checkbox" name="majatek-checkbox"
-										id="majatek-checkbox" autocomplete="off" name="majatekIOc" value="${user.klientMajatekIOc}" />
+									<c:if test="${user.klientMajatekIOc == true}">
+										<input type="checkbox" name="majatek-checkbox"
+											id="majatek-checkbox" name="majatekIOc" checked="checked" />
+									</c:if>
+									<c:if test="${user.klientMajatekIOc == false}">
+										<input type="checkbox" name="majatek-checkbox"
+											id="majatek-checkbox" name="majatekIOc" />
+									</c:if>
 									<div class="btn-group">
 										<label for="majatek-checkbox" class="btn btn-success">
 											<span class="glyphicon glyphicon-ok"></span> <span> </span>
@@ -283,8 +310,14 @@
 								</div>
 
 								<div class="form-group">
-									<input type="checkbox" name="grupowe-checkbox"
-										id="grupowe-checkbox" autocomplete="off" name="grupowe" value="${user.klientGrupowe}" />
+									<c:if test="${user.klientGrupowe == true}">
+										<input type="checkbox" name="grupowe-checkbox"
+											id="grupowe-checkbox" name="grupowe" checked="checked" />
+									</c:if>
+									<c:if test="${user.klientGrupowe == false}">
+										<input type="checkbox" name="grupowe-checkbox"
+											id="grupowe-checkbox" name="grupowe" />
+									</c:if>
 									<div class="btn-group">
 										<label for="grupowe-checkbox" class="btn btn-success">
 											<span class="glyphicon glyphicon-ok"></span> <span> </span>
@@ -301,7 +334,8 @@
 								<br>
 
 								<div class="form-group">
-									<form:select class="form-control" path="agent" value="${user.agent}">
+									<form:select class="form-control" path="agent"
+										value="${user.agent}">
 										<c:forEach var="listValue" items="${agenci}">
 											<option>${listValue}</option>
 										</c:forEach>
@@ -318,6 +352,9 @@
 									id="hiddenmajatek" />
 								<form:checkbox style="opacity:0;" path="klientGrupowe"
 									id="hiddengrupowe" />
+
+								<form:input type="hidden" path="klientUwagi"
+									value="${user.klientUwagi}" />
 
 
 								<br>
@@ -339,7 +376,8 @@
 
 											<br>
 
-											<form:select path="pracownicy['${listValue.nazwa}']" value="${pracownicy['${listValue.nazwa}']}">
+											<form:select path="pracownicy['${listValue.nazwa}']"
+												value="${pracownicy['${listValue.nazwa}']}">
 												<c:forEach var="minorValue" items="${listValue.pracownicy}">
 													<option>${minorValue}</option>
 												</c:forEach>
@@ -384,11 +422,6 @@
 								<div class="form-group">
 									<form:input type="text" path="nazwisko" placeholder="Nazwisko"
 										class="form-control" value="${user.nazwisko}" />
-								</div>
-								<div class="form-group">
-									<form:input type="text" path="telefon"
-										placeholder="Numer telefonu" class="form-control"
-										value="${user.telefon}" />
 								</div>
 
 								<button type="submit" class="btn">Zatwierdź edycję</button>

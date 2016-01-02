@@ -81,6 +81,26 @@
 		<div class="row text-center">
 			<h1>Opis produktów</h1>
 		</div>
+		
+		<hr>
+		
+		<c:if test="${result == 'success'}">
+			<div class="row text-center">
+				<div class="alert alert-success">
+					<strong>Sukces!</strong> Pomyślnie dokonano zmian.
+				</div>
+				<hr>
+			</div>
+		</c:if>
+		
+		<c:if test="${result == 'error'}">
+			<div class="row text-center">
+				<div class="alert alert-danger">
+					<strong>Błąd!</strong> Edycja nie powiodła się.
+				</div>
+				<hr>
+			</div>
+		</c:if>
 
 		<div class="col-md-6">
 			<div class="well">

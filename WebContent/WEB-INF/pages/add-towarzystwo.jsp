@@ -22,6 +22,10 @@
 	type="text/css" rel="stylesheet">
 <link href="<c:url value="/bootstrap/css/form.css" />" type="text/css"
 	rel="stylesheet">
+<link href="<c:url value="/bootstrap/css/checkbox.css" />"
+	type="text/css" rel="stylesheet">
+<link href="<c:url value="/bootstrap/css/well.css" />" type="text/css"
+	rel="stylesheet">
 
 <script src="<c:url value="/bootstrap/js/jquery-1.11.1.min.js" />"></script>
 <script src="<c:url value="/bootstrap/js/jquery.backstretch.min.js" />"></script>
@@ -124,7 +128,7 @@
 						<div class="form-group">
 							<input type="file" name="logo" placeholder="Logo"
 								class="form-password form-control" style="height: 50px">
-							<span class="text-danger">Brak pliku może skutkować błędami. Plik musi być obrazkiem.</span> <br>
+							<span class="text-danger">Logo w formacie .png</span> <br>
 
 						</div>
 

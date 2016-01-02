@@ -1,8 +1,8 @@
-package application.persistance.towarzystwa.dao;
+package application.persistance.dao;
 
 import java.util.List;
 
-import application.persistance.towarzystwa.model.Towarzystwo;
+import application.persistance.model.Towarzystwo;
 
 public interface TowarzystwoDao {
 	void addTowarzystwo(Towarzystwo tow);

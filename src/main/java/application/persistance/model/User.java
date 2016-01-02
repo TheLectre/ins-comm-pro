@@ -1,4 +1,4 @@
-package application.persistance.users.model;
+package application.persistance.model;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -67,6 +67,12 @@ public class User {
 	@Column(name="pracownik")
 	private Map<String, String> pracownicy;
 	
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name="klient_pojazdy", joinColumns=@JoinColumn(name="email"))
+	@MapKeyColumn(name="id_pojazdu", nullable=false)
+	@Column(name="ilosc")
+	private Map<Integer, Integer> pojazdy;
+	
 	@Column(name="klient_floty")
 	private Boolean klientFloty;
 	
@@ -79,14 +85,18 @@ public class User {
 	@Column(name="klient_grupowe")
 	private Boolean klientGrupowe;
 	
+	@Column(name="klient_uwagi")
+	private String klientUwagi;
+	
 	@Column(name="towarzystwo_nazwa")
-	private String towarzystwo; //dajemy jako String, jesli potrzeba to zmieniamy
+	private String towarzystwo;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Role> role = new HashSet<>();
 
 	public User() {
 		pracownicy = new HashMap<>();
+		pojazdy = new HashMap<>();
 	}
 
 	public User(String email, String password) {
@@ -259,5 +269,23 @@ public class User {
 	public void setAgent(String agent) {
 		this.agent = agent;
 	}
+
+	public Map<Integer, Integer> getPojazdy() {
+		return pojazdy;
+	}
+
+	public void setPojazdy(Map<Integer, Integer> pojazdy) {
+		this.pojazdy = pojazdy;
+	}
+
+	public String getKlientUwagi() {
+		return klientUwagi;
+	}
+
+	public void setKlientUwagi(String klientUwagi) {
+		this.klientUwagi = klientUwagi;
+	}
+	
+	
 
 }

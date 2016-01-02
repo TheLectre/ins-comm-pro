@@ -18,7 +18,7 @@
 	type="text/css" rel="stylesheet">
 <link href="<c:url value="/bootstrap/css/navbar.css" />" type="text/css"
 	rel="stylesheet">
-<link href="<c:url value="/bootstrap/css/form-elements.css" />"
+<link href="<c:url value="/bootstrap/css/form-elements-modified.css" />"
 	type="text/css" rel="stylesheet">
 <link href="<c:url value="/bootstrap/css/form.css" />" type="text/css"
 	rel="stylesheet">
@@ -79,55 +79,49 @@
 
 	<div class="container">
 		<div class="row text-center">
-			<h1>Rodzaje pojazdów</h1>
+			<h1>Lista twoich klientów</h1>
 		</div>
 
-		<hr>
+		<c:if test="${result == 'success'}">
+			<div class="row text-center">
+				<div class="alert alert-success">
+					<strong>Sukces!</strong> Akcja powiodła się.
+				</div>
+				<hr>
+			</div>
+		</c:if>
 
-		<c:forEach items="${rodzajePojazdow}" var="pojazd">
+		<c:if test="${result == 'error'}">
+			<div class="row text-center">
+				<div class="alert alert-danger">
+					<strong>Błąd!</strong> Akcja nie powiodła się.
+				</div>
+				<hr>
+			</div>
+		</c:if>
 
-			<form name="pojazdyForm ${pojazd.nazwaRodzaju}"
-				action="<c:url value="/rodzaje-pojazdow/proceed" />" method="POST">
+		<c:forEach items="${klienci}" var="klient">
+
+			<hr>
+
+			<div class="row">
+
 
 				<div class="col-md-4">
-
-					<br>
-					<div class="form-group">
-
-						<label>Aktualizuj: ${pojazd.nazwaRodzaju}</label> <input
-							class="form-control input-lg" value="${pojazd.nazwaRodzaju}"
-							name="nazwa" />
-					</div>
-
-					<button type="submit" class="btn btn-lg btn-warning">Zatwierdź
-						zmiany</button>
-
-					<input type="hidden" name="${_csrf.parameterName}"
-						value="${_csrf.token}" /> <input type="hidden" name="id"
-						value="${pojazd.id}" />
+					<h5>${klient.firma}</h5>
 				</div>
 
-			</form>
 
-		</c:forEach>
-
-		<form action="<c:url value="/rodzaje-pojazdow/add"/>" method="POST">
-			<div class="col-md-4">
-
-				<br>
-
-				<div class="form-group">
-
-					<label>Nowy rodzaj pojazdu</label> <input
-						class="form-control input-lg" name="nowyRodzaj" />
+				<div class="col-md-4">
+					<h5>${klient.imie} ${klient.nazwisko}</h5>
 				</div>
 
-				<button type="submit" class="btn btn-lg btn-warning">Dodaj</button>
-
-				<input type="hidden" name="${_csrf.parameterName}"
-					value="${_csrf.token}" />
+				<div class="col-md-4">
+					<a class="btn btn-warning"
+						href="<c:url value="/baza-klientow/klient/?kli=${klient.email}" />">Więcej</a>
+				</div>
 			</div>
-		</form>
+		</c:forEach>
 
 	</div>
 </body>

@@ -24,6 +24,8 @@
 	rel="stylesheet">
 <link href="<c:url value="/bootstrap/css/checkbox.css" />"
 	type="text/css" rel="stylesheet">
+<link href="<c:url value="/bootstrap/css/well.css" />" type="text/css"
+	rel="stylesheet">
 
 <script src="<c:url value="/bootstrap/js/jquery-1.11.1.min.js" />"></script>
 <script src="<c:url value="/bootstrap/js/jquery.backstretch.min.js" />"></script>
@@ -79,56 +81,54 @@
 
 	<div class="container">
 		<div class="row text-center">
-			<h1>Rodzaje pojazdów</h1>
+			<h1>Baza pojazdów ${klient.firma}</h1>
 		</div>
 
 		<hr>
 
-		<c:forEach items="${rodzajePojazdow}" var="pojazd">
-
-			<form name="pojazdyForm ${pojazd.nazwaRodzaju}"
-				action="<c:url value="/rodzaje-pojazdow/proceed" />" method="POST">
-
-				<div class="col-md-4">
-
-					<br>
-					<div class="form-group">
-
-						<label>Aktualizuj: ${pojazd.nazwaRodzaju}</label> <input
-							class="form-control input-lg" value="${pojazd.nazwaRodzaju}"
-							name="nazwa" />
-					</div>
-
-					<button type="submit" class="btn btn-lg btn-warning">Zatwierdź
-						zmiany</button>
-
-					<input type="hidden" name="${_csrf.parameterName}"
-						value="${_csrf.token}" /> <input type="hidden" name="id"
-						value="${pojazd.id}" />
+		<div class="row">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<strong>Baza pojazdów</strong>
 				</div>
+				<div class="panel-body">
 
-			</form>
+					<c:url value="/baza-klientow/klient/pojazdy/proceed"
+						var="pojazdyUrl" />
 
-		</c:forEach>
-
-		<form action="<c:url value="/rodzaje-pojazdow/add"/>" method="POST">
-			<div class="col-md-4">
-
-				<br>
-
-				<div class="form-group">
-
-					<label>Nowy rodzaj pojazdu</label> <input
-						class="form-control input-lg" name="nowyRodzaj" />
+					<form:form action="${pojazdyUrl}" method="POST"
+						modelAttribute="pojazdyMapForm">
+						<table class="table table-bordered table-hover">
+							<thead>
+								<tr class="success">
+									<th>Typ pojazdu</th>
+									<th>Ilość</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${pojazdy}" var="pojazd">
+									<tr class="warning">
+										<td>${pojazd.nazwaRodzaju}</td>
+										<td><form:input path="map[${pojazd.id}]"
+												value="${klient.pojazdy[pojazd.id]}" /></td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+						<button type="submit" class="btn btn-lg btn-warning">Zatwierdź
+							edycję</button>
+						<input type="hidden" name="kli" value="${klient.email}" />
+						<input type="hidden" name="${_csrf.parameterName}"
+							value="${_csrf.token}" />
+					</form:form>
 				</div>
-
-				<button type="submit" class="btn btn-lg btn-warning">Dodaj</button>
-
-				<input type="hidden" name="${_csrf.parameterName}"
-					value="${_csrf.token}" />
 			</div>
-		</form>
+		</div>
 
+		<hr>
+
+
+	</div>
 	</div>
 </body>
 </html>

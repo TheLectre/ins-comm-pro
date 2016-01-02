@@ -1,5 +1,6 @@
-package application.persistance.users.dao;
+package application.persistance.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -8,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import application.persistance.users.model.User;
+import application.persistance.model.User;
 
 @Repository("usersRepository")
 public class UsersRepository implements UserDao {
@@ -79,6 +80,50 @@ public class UsersRepository implements UserDao {
 		List<User> users = session.createQuery("from User where typ = 'towarzystwo' and towarzystwo = :tu ").setParameter("tu", towarzystwo).list();
 		
 		return users;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public List<User> getAllClients() {
+		
+		Session session = sessionFactory.getCurrentSession();
+		
+		List<User> clients = session.createQuery("from User where typ = 'klient' ").list();
+		
+		return clients;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public List<User> getClientsOfAgent(String agentEmail) {
+		
+		Session session = sessionFactory.getCurrentSession();
+		
+		List<User> clients = session.createQuery("from User where typ = 'klient' and agent = :agent ").setParameter("agent", agentEmail).list();
+		
+		return clients;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public List<User> getClientsOfTowarzystwo(String pracownikEmail) {
+		
+		Session session = sessionFactory.getCurrentSession();
+		
+		List<User> allClients = session.createQuery("from User where typ = 'klient'").list();
+		
+		List<User> myClients = new ArrayList<>();
+		
+		for(User p : allClients) {
+			if(p.getPracownicy().containsValue(pracownikEmail)) {
+				myClients.add(p);
+			}
+		}
+		
+		return myClients;
 	}
 
 }

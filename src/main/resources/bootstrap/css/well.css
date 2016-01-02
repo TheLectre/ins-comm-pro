@@ -1,0 +1,29 @@
+.well {
+	background: rgba(234, 214, 135, 0.48);
+	border-color: rgb(195, 150, 60);
+}
+
+.row-eq-height {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+}
+
+textarea.form-control {
+	height: 200px;
+}
+
+table {
+	table-layout: fixed;
+}
+
+table th, table td {
+	overflow: hidden;
+}
+
+.selectwidthauto
+{
+     width:auto !important;
+     font-size: 28px;
+}

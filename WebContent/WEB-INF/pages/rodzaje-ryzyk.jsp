@@ -22,6 +22,8 @@
 	type="text/css" rel="stylesheet">
 <link href="<c:url value="/bootstrap/css/form.css" />" type="text/css"
 	rel="stylesheet">
+<link href="<c:url value="/bootstrap/css/checkbox.css" />"
+	type="text/css" rel="stylesheet">
 
 <script src="<c:url value="/bootstrap/js/jquery-1.11.1.min.js" />"></script>
 <script src="<c:url value="/bootstrap/js/jquery.backstretch.min.js" />"></script>
@@ -80,22 +82,92 @@
 			<h1>Rodzaje ryzyk</h1>
 		</div>
 
-		<hr>
+		<c:forEach items="${ryzyka}" var="ryzyko">
+			<div class="col-md-4">
 
-		<div class="row text-center">
-			<span class="text-info"><strong>OC</strong></span>
-		</div>
-		
-		<form:form action="<c:url value="/rodzaje-ryzyk/proceed" />">
-		<div class="form-group">
-			<label for="comment">opis:</label>
-			<textarea class="form-control noresize" id="comment">TODO opis OC</textarea>
-		</div>
-		</form:form>
-		
-		
-		
-		
+				<hr>
+
+				<form name="ryzykaForm ${ryzyko.skrot}"
+					action="<c:url value="/rodzaje-ryzyk/proceed" />" method="POST">
+
+					<div class="form-group">
+
+						<label>skrót:</label> <input class="form-control input-lg"
+							value="${ryzyko.skrot}" name="skrot" /> <label>nazwa:</label> <input
+							class="form-control input-lg" value="${ryzyko.nazwa}"
+							name="nazwa" /> <label>opis:</label>
+						<textarea name="opis" class="form-control noresize">${ryzyko.opis}</textarea>
+					</div>
+
+
+					<strong><label>naliczanie <c:if
+							test="${ryzyko.rodzaj == 'standard'}">
+					standardowe
+				</c:if> <c:if test="${ryzyko.rodzaj == 'procent'}">
+					od wartości pojazdów
+				</c:if>
+					</label></strong>
+					
+					<br><br>
+
+					<button type="submit" class="btn btn-lg btn-warning">Zatwierdź
+						zmiany</button>
+
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" /> <input type="hidden" name="id"
+						value="${ryzyko.id}" /> <input type="hidden" name="rodzaj"
+						value="${ryzyko.rodzaj}" />
+
+
+				</form>
+
+				<br>
+
+				<form name="usunForm"
+					action="<c:url value="/rodzaje-ryzyk/delete" />" method="POST">
+					<input type="hidden" name="id" value="${ryzyko.id}"> <input
+						type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
+					<button type="submit" class="btn btn-lg btn-warning">Usuń
+						ryzyko</button>
+				</form>
+
+			</div>
+		</c:forEach>
+
+		<form name="dodajRyzykoForm"
+			action="<c:url value="/rodzaje-ryzyk/add" />" method="POST">
+
+			<div class="col-md-4">
+
+				<hr>
+
+				<div class="form-group">
+
+					<label>skrót:</label> <input class="form-control input-lg"
+						name="skrot" /> <label>nazwa:</label> <input
+						class="form-control input-lg" name="nazwa" /> <label>opis:</label>
+					<textarea name="opis" class="form-control noresize"></textarea>
+
+					<br> <input type="checkbox" id="rodzajCheckbox" name="rodzaj" />
+					<div class="btn-group">
+						<label for="rodzajCheckbox" class="btn btn-success"> <span
+							class="glyphicon glyphicon-ok"></span> <span> </span>
+						</label> <label for="rodzajCheckbox" class="btn btn-default active">
+							Naliczane od wartości pojazdów, w % </label>
+					</div>
+				</div>
+
+				<button type="submit" class="btn btn-lg btn-warning">Dodaj
+					nowe ryzyko</button>
+
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
+			</div>
+
+		</form>
+
+
 
 	</div>
 </body>

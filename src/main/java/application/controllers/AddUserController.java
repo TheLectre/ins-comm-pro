@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import application.persistance.towarzystwa.dao.TowarzystwoDao;
-import application.persistance.towarzystwa.model.Towarzystwo;
-import application.persistance.users.dao.UserDao;
-import application.persistance.users.model.User;
-import application.persistance.users.util.RolesProvider;
+import application.persistance.dao.TowarzystwoDao;
+import application.persistance.dao.UserDao;
+import application.persistance.model.Towarzystwo;
+import application.persistance.model.User;
+import application.persistance.util.RolesProvider;
 
 @Controller
 public class AddUserController {

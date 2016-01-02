@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import application.persistance.towarzystwa.dao.TowarzystwoDao;
-import application.persistance.towarzystwa.model.Towarzystwo;
+import application.persistance.dao.TowarzystwoDao;
+import application.persistance.model.Towarzystwo;
 
 @Controller
 public class AddTowarzystwoController {
