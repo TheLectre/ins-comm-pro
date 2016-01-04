@@ -41,7 +41,7 @@ public class Oferta {
 	@Column(name="pdf_name")
 	private String pdfName;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "oferta")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "oferta")
 	List<OfertaSzczegoly> szczegoly;
 
 	public Oferta() {

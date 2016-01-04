@@ -89,18 +89,29 @@
 		<hr>
 
 		<div class="row text-center">
-			<c:url value="/baza-klientow/klient/oferta/proceed"
+			<c:url
+				value="/baza-klientow/klient/oferta/proceed?${_csrf.parameterName}=${_csrf.token}"
 				var="dodajOferteUrl" />
 
 			<form:form action="${dodajOferteUrl}" method="POST"
 				modelAttribute="ofertyForm" enctype="multipart/form-data">
 
-				<input type="hidden" name="${_csrf.parameterName}"
-					value="${_csrf.token}" />
-
 				<form:input type="hidden" path="klientEmail" value="${klient.email}" />
 
 				<div class="row">
+
+					<div class="col-md-4">
+						<strong class="text-success">Towarzystwo</strong> <br> <label
+							for="towarzystwo">TU</label> <br>
+						<form:select class="selectwidthauto" path="towarzystwo"
+							id="towarzystwo">
+							<option>Aktualne Towarzystwo</option>
+							<c:forEach var="towarzystwo" items="${towarzystwa}">
+								<option>${towarzystwo.nazwa}</option>
+							</c:forEach>
+						</form:select>
+					</div>
+
 
 					<div class="col-md-4">
 						<strong class="text-success">Data</strong> <br>
@@ -175,21 +186,8 @@
 					</div>
 
 					<div class="col-md-4">
-						<strong class="text-success">Towarzystwo</strong> <br> <label
-							for="towarzystwo">TU</label> <br>
-						<form:select class="selectwidthauto" path="towarzystwo"
-							id="towarzystwo">
-							<option>Aktualne Towarzystwo</option>
-							<c:forEach var="towarzystwo" items="${towarzystwa}">
-								<option>${towarzystwo.nazwa}</option>
-							</c:forEach>
-						</form:select>
-					</div>
-
-					<div class="col-md-4">
 						<strong class="text-success">PDF</strong> <br> <label
-							for="pdf">Plik</label>
-						<form:input type="file" path="data" id="pdf" />
+							for="pdf">Plik</label> <input type="file" name="pdfData" id="pdf" />
 					</div>
 				</div>
 
@@ -254,7 +252,7 @@
 
 				<br>
 				<br>
-				
+
 			</form:form>
 		</div>
 

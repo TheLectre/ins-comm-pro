@@ -76,7 +76,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						"/baza-klientow/klient/oferta")
 				.access("hasRole('ROLE_MANAGECLIENTS')")
 				.antMatchers(HttpMethod.POST, "/baza-klientow/klient/opis",
-						"/baza-klientow/klient/pojazdy/proceed")
+						"/baza-klientow/klient/pojazdy/proceed", 
+						"/baza-klientow/klient/oferta/proceed")
 				.access("hasRole('ROLE_MANAGECLIENTS')")
 
 				.and().formLogin().loginPage("/login")

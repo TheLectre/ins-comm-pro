@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import application.persistance.dao.OfertyDao;
 import application.persistance.dao.RodzajePojazdowDao;
@@ -98,8 +100,6 @@ public class ClientsController {
 		model.addAttribute("pojazdy", pojazdy);
 
 		List<Oferta> oferty = ofertyRepository.getAllOfClient(klientEmail);
-
-		System.out.println(oferty.size());
 
 		model.addAttribute("oferty", oferty);
 
@@ -188,8 +188,9 @@ public class ClientsController {
 
 	@RequestMapping(value = "/baza-klientow/klient/oferta/proceed", method = RequestMethod.POST)
 	public String proceedAddOffer(
-
-	@ModelAttribute(value = "ofertyForm") OfertyForm ofertyForm, ModelMap model) {
+			@ModelAttribute(value = "ofertyForm") OfertyForm ofertyForm,
+			@RequestParam(value = "pdfData", required = false) CommonsMultipartFile file,
+			ModelMap model) {
 
 		Oferta oferta = new Oferta();
 		oferta.setKlientEmail(ofertyForm.getKlientEmail());
@@ -197,7 +198,9 @@ public class ClientsController {
 		oferta.setRok(ofertyForm.getRok());
 		oferta.setMiesiac(ofertyForm.getMiesiac());
 		oferta.setDzien(ofertyForm.getDzien());
-		oferta.setPdfData(ofertyForm.getData());
+
+		oferta.setPdfData(file.getBytes());
+
 		oferta.setPdfName(ofertyForm.getTowarzystwo() + " "
 				+ ofertyForm.getDzien() + "-" + ofertyForm.getMiesiac() + "-"
 				+ ofertyForm.getRok() + ".pdf");
@@ -214,24 +217,38 @@ public class ClientsController {
 
 		return printClientPage(ofertyForm.getKlientEmail(), model);
 	}
-	
-	@RequestMapping(value="/oferta/{ofertaId}", method = RequestMethod.POST)
-	public String printOfferPage(ModelMap model, @PathVariable(value="ofertaId") Integer ofertaId) {
-		
+
+	@RequestMapping(value = "/baza-klientow/klient/oferta/check/{ofertaId}", method = RequestMethod.POST)
+	public String printOfferPage(ModelMap model,
+			@PathVariable(value = "ofertaId") Integer ofertaId) {
+
 		Oferta oferta = ofertyRepository.getById(ofertaId);
-		
+
 		User klient = usersRepository.findByEmail(oferta.getKlientEmail());
 		
+		List<Ryzyko> ryzyka = ryzykaRepository.getAllRyzyka();
+		
+		List<RodzajPojazdu> pojazdy = rodzajePojazdowRepository
+				.getAllRodzajePojazdow();
+
+		model.addAttribute("pojazdy", pojazdy);
 		model.addAttribute("klient", klient);
 		model.addAttribute("oferta", oferta);
-		
-		
-		return "oferta"; 
+		model.addAttribute("ryzyka", ryzyka);
+
+		return "oferta";
+	}
+	
+	@RequestMapping(value = "/oferta/download/{ofertaId}", method = RequestMethod.POST)
+	@ResponseBody
+	public byte[] proceedDownloadPdf(@PathVariable Integer ofertaId, ModelMap model) {
+		return ofertyRepository.getById(ofertaId).getPdfData();
 	}
 
 }
 
 class PojazdyMapForm {
+
 	private Map<Integer, Integer> map;
 
 	public PojazdyMapForm() {
@@ -249,9 +266,8 @@ class PojazdyMapForm {
 }
 
 class OfertyForm {
-	List<OfertaSzczegoly> list = new ArrayList<>();
 
-	byte[] data;
+	List<OfertaSzczegoly> list = new ArrayList<>();
 
 	String klientEmail;
 
@@ -313,13 +329,4 @@ class OfertyForm {
 
 	public OfertyForm() {
 	}
-
-	public byte[] getData() {
-		return data;
-	}
-
-	public void setData(byte[] data) {
-		this.data = data;
-	}
-
 }

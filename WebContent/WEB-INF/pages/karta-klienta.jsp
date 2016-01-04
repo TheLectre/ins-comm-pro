@@ -32,6 +32,54 @@
 <script src="<c:url value="/bootstrap/js/scripts.js" />"></script>
 <script src="<c:url value="/bootstrap/js/bootstrap.min.js" />"></script>
 
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+
+    google.load('visualization', '1', {packages: ['corechart', 'bar']});
+    google.setOnLoadCallback(drawBasic);
+
+    function drawBasic() {
+
+          var data = new google.visualization.DataTable();
+          data.addColumn('timeofday', 'Time of Day');
+          data.addColumn('number', 'Motivation Level');
+
+          data.addRows([
+            [{v: [8, 0, 0], f: '8 am'}, 1],
+            [{v: [9, 0, 0], f: '9 am'}, 2],
+            [{v: [10, 0, 0], f:'10 am'}, 3],
+            [{v: [11, 0, 0], f: '11 am'}, 4],
+            [{v: [12, 0, 0], f: '12 pm'}, 5],
+            [{v: [13, 0, 0], f: '1 pm'}, 6],
+            [{v: [14, 0, 0], f: '2 pm'}, 7],
+            [{v: [15, 0, 0], f: '3 pm'}, 8],
+            [{v: [16, 0, 0], f: '4 pm'}, 9],
+            [{v: [17, 0, 0], f: '5 pm'}, 10],
+          ]);
+
+          var options = {
+            title: 'Motivation Level Throughout the Day',
+            hAxis: {
+              title: 'Time of Day',
+              format: 'h:mm a',
+              viewWindow: {
+                min: [7, 30, 0],
+                max: [17, 30, 0]
+              }
+            },
+            vAxis: {
+              title: 'Rating (scale of 1-10)'
+            }
+          };
+
+          var chart = new google.visualization.ColumnChart(
+            document.getElementById('chart_div'));
+
+          chart.draw(data, options);
+        }
+    </script>
+
 </head>
 <body>
 	<form action="<c:url value="/logout" />" method="post" id="logoutForm">
@@ -274,14 +322,20 @@
 					<c:forEach items="${oferty}" var="oferta">
 						<div class="row">
 
-							<div class="col-md-4">${oferta.data}</div>
+							<div class="col-md-4">${oferta.dzien}-${oferta.miesiac}-${oferta.rok}</div>
 
 
 							<div class="col-md-4">${oferta.towarzystwo}</div>
 
 							<div class="col-md-4">
-								<a class="btn btn-lg btn-warning" href="<c:url value="#" />">Więcej</a>
+								<form action="<c:url value="/baza-klientow/klient/oferta/check/${oferta.id}" />"
+									method="POST">
+									<input type="submit" class="btn btn-warning" value="więcej">
+									<input type="hidden" name="${_csrf.parameterName}"
+										value="${_csrf.token}" />
+								</form>
 							</div>
+							<hr>
 						</div>
 					</c:forEach>
 
@@ -291,6 +345,17 @@
 						<button type="submit" class="btn btn-warning">Dodaj
 							ofertę</button>
 					</form>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<strong>Wykresy ofert</strong>
+				</div>
+				<div class="panel-body">
+					<div id="chart_div"></div>
 				</div>
 			</div>
 		</div>
