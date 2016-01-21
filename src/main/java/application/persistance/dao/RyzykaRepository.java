@@ -89,4 +89,16 @@ public class RyzykaRepository implements RyzykaDao {
 
 	}
 	
+	@Override
+	@Transactional
+	public Ryzyko get(Integer id) {
+
+		Session session = sessionFactory.getCurrentSession();
+
+		Ryzyko ryzyko = (Ryzyko)session.createQuery("from Ryzyko where id = :id").setParameter("id", id).uniqueResult();
+		
+		return ryzyko;
+
+	}
+	
 }

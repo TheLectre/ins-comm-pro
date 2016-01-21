@@ -101,49 +101,49 @@ public class UserListController {
 
 		updatedUser.setEmail(user.getEmail());
 
-		if (!user.getPassword().isEmpty()) {
+		if (user.getPassword() != null && !user.getPassword().isEmpty()) {
 			updatedUser.setPassword(user.getPassword());
 		}
-		if (!user.getTyp().isEmpty()) {
+		if (user.getTyp() != null && !user.getTyp().isEmpty()) {
 			updatedUser.setTyp(user.getTyp());
 		}
-		if (!user.getImie().isEmpty()) {
+		if (user.getImie() != null && !user.getImie().isEmpty()) {
 			updatedUser.setImie(user.getImie());
 		}
-		if (!user.getNazwisko().isEmpty()) {
+		if (user.getNazwisko() != null && !user.getNazwisko().isEmpty()) {
 			updatedUser.setNazwisko(user.getNazwisko());
 		}
-		if (!user.getTelefon().isEmpty()) {
+		if (user.getTelefon() != null && !user.getTelefon().isEmpty()) {
 			updatedUser.setTelefon(user.getTelefon());
 		}
-		if (!user.getUlica().isEmpty()) {
+		if (user.getUlica() != null && !user.getUlica().isEmpty()) {
 			updatedUser.setUlica(user.getUlica());
 		}
-		if (!user.getKod().isEmpty()) {
+		if (user.getKod() != null && !user.getKod().isEmpty()) {
 			updatedUser.setKod(user.getKod());
 		}
-		if (!user.getMiasto().isEmpty()) {
+		if (user.getMiasto() != null && !user.getMiasto().isEmpty()) {
 			updatedUser.setMiasto(user.getMiasto());
 		}
-		if (!user.getRegion().isEmpty()) {
+		if (user.getRegion() != null && !user.getRegion().isEmpty()) {
 			updatedUser.setRegion(user.getRegion());
 		}
-		if (!user.getNip().isEmpty()) {
+		if (user.getNip() != null && !user.getNip().isEmpty()) {
 			updatedUser.setNip(user.getNip());
 		}
-		if (!user.getFirma().isEmpty()) {
+		if (user.getFirma() != null && !user.getFirma().isEmpty()) {
 			updatedUser.setFirma(user.getFirma());
 		}
-		if (!user.getAgent().isEmpty()) {
+		if (user.getAgent() != null && !user.getAgent().isEmpty()) {
 			updatedUser.setAgent(user.getAgent());
 		}
 
 		updatedUser.setPracownicy(user.getPracownicy());
 
-		if (!user.getTowarzystwo().isEmpty()) {
+		if (user.getTowarzystwo() != null && !user.getTowarzystwo().isEmpty()) {
 			updatedUser.setTowarzystwo(user.getTowarzystwo());
 		}
-		if (!user.getKlientUwagi().isEmpty()) {
+		if (user.getKlientUwagi() != null && !user.getKlientUwagi().isEmpty()) {
 			updatedUser.setKlientUwagi(user.getKlientUwagi());
 		}
 

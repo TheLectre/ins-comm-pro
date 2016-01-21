@@ -1,6 +1,7 @@
 package application.persistance.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import application.persistance.model.Oferta;
 

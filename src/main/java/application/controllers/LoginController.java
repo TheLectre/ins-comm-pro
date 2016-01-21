@@ -11,7 +11,7 @@ public class LoginController {
 
 	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
 	public String printHomePage() {
-		
+
 		return "home";
 	}
 
@@ -27,7 +27,7 @@ public class LoginController {
 		return "login";
 	}
 
-	@RequestMapping(value = { "/403" })
+	@RequestMapping(value = "/403")
 	public String print403Page(ModelMap model) {
 		return "403";
 	}

@@ -242,6 +242,8 @@
 									</c:forEach>
 								</tbody>
 							</table>
+							<label>Nie dodawaj tego ryzyka</label> <br>
+							<form:checkbox path="saveMap['${ryzyko.id}']" />
 						</div>
 					</c:forEach>
 				</div>

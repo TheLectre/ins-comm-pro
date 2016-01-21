@@ -95,20 +95,20 @@ public class Oferta {
 		this.dzien = dzien;
 	}
 
-	public List<OfertaSzczegoly> getSzczegoly() {
-		return szczegoly;
-	}
-
-	public void setSzczegoly(List<OfertaSzczegoly> szczegoly) {
-		this.szczegoly = szczegoly;
-	}
-
 	public byte[] getPdfData() {
 		return pdfData;
 	}
 
 	public void setPdfData(byte[] pdfData) {
 		this.pdfData = pdfData;
+	}
+	
+	public List<OfertaSzczegoly> getSzczegoly() {
+		return szczegoly;
+	}
+
+	public void setSzczegoly(List<OfertaSzczegoly> szczegoly) {
+		this.szczegoly = szczegoly;
 	}
 
 	public String getPdfName() {

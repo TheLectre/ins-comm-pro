@@ -1,6 +1,8 @@
 package application.persistance.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,11 +11,17 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import application.persistance.model.Oferta;
+import application.persistance.model.OfertaSzczegoly;
+import application.persistance.model.Ryzyko;
 
 @Repository
 public class OfertyRepository implements OfertyDao {
+	
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	@Autowired
+	private RyzykaDao ryzykaRepository;
 
 	@Override
 	@Transactional
@@ -62,4 +70,5 @@ public class OfertyRepository implements OfertyDao {
 
 		return oferta;
 	}
+
 }

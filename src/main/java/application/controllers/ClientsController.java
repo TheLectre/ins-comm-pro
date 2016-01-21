@@ -2,8 +2,12 @@ package application.controllers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -103,6 +107,99 @@ public class ClientsController {
 
 		model.addAttribute("oferty", oferty);
 
+		// charts
+
+		// ryzyka
+		Set<String> ryzykaStr = new LinkedHashSet<>();
+		Set<Ryzyko> ryzyka = new LinkedHashSet<>();
+
+		for (Oferta oferta : oferty) {
+			for (OfertaSzczegoly szczegoly : oferta.getSzczegoly()) {
+
+				Ryzyko ryzyko = ryzykaRepository
+						.get(szczegoly.getId_produktu());
+
+				if (ryzyko != null) {
+					ryzykaStr.add(ryzyko.getSkrot());
+					ryzyka.add(ryzyko);
+				}
+			}
+		}
+
+		model.addAttribute("ryzyka", ryzykaStr);
+
+		// presentation form
+		List<String> towarzystwa = new ArrayList<>();
+		List<Map<String, Integer>> mapList = new ArrayList();
+
+		for (Oferta oferta : oferty) {
+
+			// towarzystwo
+			towarzystwa.add(oferta.getTowarzystwo());
+			Map<String, Integer> map = new LinkedHashMap<>();
+
+			// stawki
+			for (Ryzyko ryzyko : ryzyka) {
+
+				Integer suma = 0;
+
+				for (OfertaSzczegoly szczegoly : oferta.getSzczegoly()) {
+					if (szczegoly.getId_produktu() == ryzyko.getId()) {
+						suma += szczegoly.getWartosc_druga() != null ? szczegoly
+								.getWartosc_druga() : 0;
+					}
+				}
+
+				map.put(ryzyko.getSkrot(), suma);
+			}
+
+			Integer sumaAll = 0;
+
+			for (Integer i : map.values()) {
+				sumaAll += i;
+			}
+
+			map.put("Razem", sumaAll);
+
+			System.out.println(map);
+			
+			mapList.add(map);
+		}
+
+		// usuwanie mniej atrakcyjnych ofert tego samego towarzystwa
+		boolean flag = true;
+		while(flag) {
+			
+			flag = false;
+			
+			for (int i = 0; i < towarzystwa.size(); i++) {
+				  for (int j = 0; j < towarzystwa.size(); j++) {
+					if(i==j) {
+						continue;
+					}
+					if (towarzystwa.get(i).equals(towarzystwa.get(j))) {
+						if (mapList.get(i).get("Razem") <= mapList.get(j).get(
+								"Razem")) {
+							towarzystwa.remove((int)i);
+							mapList.remove((int)i);
+							flag = true;
+						}
+						else {
+							towarzystwa.remove((int)j);
+							mapList.remove((int)j);
+							flag = true;
+						}
+					}
+				}
+			}
+		}
+		
+		System.out.println(towarzystwa);
+		System.out.println(mapList);
+
+		model.addAttribute("towarzystwa", towarzystwa);
+		model.addAttribute("mapList", mapList);
+
 		return "karta-klienta";
 	}
 
@@ -181,6 +278,11 @@ public class ClientsController {
 			ofertyForm.getList().add(new OfertaSzczegoly());
 		}
 
+		// save offer?
+		for (Ryzyko p : ryzyka) {
+			ofertyForm.getSaveMap().put(p.getId(), false); // false == save
+		}
+
 		model.addAttribute("ofertyForm", ofertyForm);
 
 		return "dodaj-oferte";
@@ -191,6 +293,15 @@ public class ClientsController {
 			@ModelAttribute(value = "ofertyForm") OfertyForm ofertyForm,
 			@RequestParam(value = "pdfData", required = false) CommonsMultipartFile file,
 			ModelMap model) {
+
+		for (Oferta p : ofertyRepository.getAllOfClient(ofertyForm.klientEmail)) {
+			if (ofertyForm.getDzien().equals(p.getDzien())
+					&& ofertyForm.getMiesiac().endsWith(p.getMiesiac())
+					&& ofertyForm.getRok().equals(p.getRok())) {
+				model.addAttribute("result", "error");
+				return printClientPage(ofertyForm.getKlientEmail(), model);
+			}
+		}
 
 		Oferta oferta = new Oferta();
 		oferta.setKlientEmail(ofertyForm.getKlientEmail());
@@ -205,8 +316,20 @@ public class ClientsController {
 				+ ofertyForm.getDzien() + "-" + ofertyForm.getMiesiac() + "-"
 				+ ofertyForm.getRok() + ".pdf");
 
-		for (OfertaSzczegoly p : ofertyForm.getList()) {
+		Iterator<OfertaSzczegoly> iterator = ofertyForm.getList().iterator();
+		while (iterator.hasNext()) {
+
+			OfertaSzczegoly p = iterator.next();
+
 			p.setOferta(oferta);
+
+			for (Integer idRyzyka : ofertyForm.getSaveMap().keySet()) {
+				if (ofertyForm.getSaveMap().get(idRyzyka) != null
+						&& ofertyForm.getSaveMap().get(idRyzyka)
+						&& p.getId_produktu() == idRyzyka) {
+					iterator.remove();
+				}
+			}
 		}
 
 		oferta.setSzczegoly(ofertyForm.getList());
@@ -225,9 +348,9 @@ public class ClientsController {
 		Oferta oferta = ofertyRepository.getById(ofertaId);
 
 		User klient = usersRepository.findByEmail(oferta.getKlientEmail());
-		
+
 		List<Ryzyko> ryzyka = ryzykaRepository.getAllRyzyka();
-		
+
 		List<RodzajPojazdu> pojazdy = rodzajePojazdowRepository
 				.getAllRodzajePojazdow();
 
@@ -238,10 +361,11 @@ public class ClientsController {
 
 		return "oferta";
 	}
-	
+
 	@RequestMapping(value = "/oferta/download/{ofertaId}", method = RequestMethod.POST)
 	@ResponseBody
-	public byte[] proceedDownloadPdf(@PathVariable Integer ofertaId, ModelMap model) {
+	public byte[] proceedDownloadPdf(@PathVariable Integer ofertaId,
+			ModelMap model) {
 		return ofertyRepository.getById(ofertaId).getPdfData();
 	}
 
@@ -268,6 +392,8 @@ class PojazdyMapForm {
 class OfertyForm {
 
 	List<OfertaSzczegoly> list = new ArrayList<>();
+
+	Map<Integer, Boolean> saveMap = new HashMap<>();
 
 	String klientEmail;
 
@@ -325,6 +451,14 @@ class OfertyForm {
 
 	public void setList(List<OfertaSzczegoly> list) {
 		this.list = list;
+	}
+
+	public Map<Integer, Boolean> getSaveMap() {
+		return saveMap;
+	}
+
+	public void setSaveMap(Map<Integer, Boolean> saveMap) {
+		this.saveMap = saveMap;
 	}
 
 	public OfertyForm() {

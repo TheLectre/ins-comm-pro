@@ -13,6 +13,8 @@ public interface RyzykaDao {
 	boolean isRyzykoPresent(Ryzyko ryzyko);
 
 	List<Ryzyko> getAllRyzyka();
+	
+	Ryzyko get(Integer id);
 
 	void deleteRyzyko(int id);
 }
